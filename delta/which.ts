@@ -7,7 +7,7 @@ composer.command("which", isGroup, async (ctx: Context): Promise<void> => {
   const status = (await ctx.getChatMember(ctx!.from!.id)).status;
 
   await ctx.reply(
-    `<b>Ushbu ${ctx!.from!.first_name} metrikasi:</b>` +
+    `<b>Rustacean ${ctx!.from!.first_name} metrikasi:</b>` +
       `\n` +
       `\n` +
       `<b>Ismi:</b> ${ctx!.from!.first_name} ` + `\n` +
