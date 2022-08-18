@@ -78,12 +78,12 @@ composer.callbackQuery(/^detail_(\d+)_(.*)$/, async (ctx: Context) => {
 
     await ctx.editMessageText(
       `<b>${data.name}</b>` +
-      `\n` +
-      `\n` +
-      `<i>${data.about}</i>` +
-      `\n` +
-      `\n` +
-      `<b>Use the following buttons to get to the links:</b>`,
+        `\n` +
+        `\n` +
+        `<i>${data.about}</i>` +
+        `\n` +
+        `\n` +
+        `<b>Use the following buttons to get to the links:</b>`,
       {
         parse_mode: "HTML",
         reply_markup: keyboard,

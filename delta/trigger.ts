@@ -18,9 +18,7 @@ composer.command("off", isReply, async (ctx: Context): Promise<void> => {
       ctx.message!.message_id,
     );
     await ctx.reply(
-      `<b>Hurmatli <a href="tg://user?id=${ctx?.message?.reply_to_message
-        ?.from?.id}">${ctx?.message?.reply_to_message?.from
-        ?.first_name}</a>,</b>` +
+      `<b>Hurmatli <a href="tg://user?id=${ctx?.message?.reply_to_message?.from?.id}">${ctx?.message?.reply_to_message?.from?.first_name}</a>,</b>` +
         `\n` +
         `\n` +
         `Tushunishim bo'yicha siz mavzudan chetlayashayabsiz. Iltimos, ` +
@@ -55,9 +53,7 @@ composer.command("nonoff", isReply, async (ctx: Context): Promise<void> => {
       ctx.message!.message_id,
     );
     await ctx.reply(
-      `<b>Hurmatli <a href="tg://user?id=${ctx?.message?.reply_to_message
-        ?.from?.id}">${ctx?.message?.reply_to_message?.from
-        ?.first_name}</a>,</b>` +
+      `<b>Hurmatli <a href="tg://user?id=${ctx?.message?.reply_to_message?.from?.id}">${ctx?.message?.reply_to_message?.from?.first_name}</a>,</b>` +
         `\n` +
         `\n` +
         `Chunishim bo'yicha siz mavzuga kirib ketayabsiz. Iltimos, ` +
@@ -84,9 +80,7 @@ composer.command("doc", isReply, async (ctx: Context): Promise<void> => {
     });
   } else {
     await ctx.reply(
-      `<b>Demak, <a href="tg://user?id=${ctx?.message?.reply_to_message
-        ?.from?.id}">${ctx?.message?.reply_to_message?.from
-        ?.first_name}</a>,</b>` +
+      `<b>Demak, <a href="tg://user?id=${ctx?.message?.reply_to_message?.from?.id}">${ctx?.message?.reply_to_message?.from?.first_name}</a>,</b>` +
         `\n` +
         `\n` +
         `<i>Bir bor ekan, bir yo'q ekan... Qadim o'tgan zamonlarda dokumentatsiya ` +
