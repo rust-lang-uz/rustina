@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Thu Aug 18 16:29:59 2022
+# Make data base, printed on Thu Aug 18 18:56:58 2022
 
 # Variables
 
@@ -37,7 +37,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/bin/make
 # environment
-STARSHIP_SESSION_KEY = 8933320082053528
+STARSHIP_SESSION_KEY = 5313104722074417
 # environment
 FRUM_LOGLEVEL = info
 # environment
@@ -47,7 +47,7 @@ INFOPATH = /opt/homebrew/share/info:/opt/homebrew/share/info:
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /Users/uwussimo/.bun/bin:/Users/uwussimo/.jenv/shims:/var/folders/cd/34fsn55n1njfndyxtq3_r1bc0000gn/T/frum_35247_1660822195962/bin:/Users/uwussimo/.rbenv/bin:/Users/uwussimo/.volta/bin:/Users/uwussimo/.deno/bin:/Users/uwussimo/.jenv/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/python/libexec/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Little Snitch.app/Contents/Components:/Library/Apple/usr/bin:/Users/uwussimo/.bun/bin:/Users/uwussimo/.jenv/shims:/var/folders/cd/34fsn55n1njfndyxtq3_r1bc0000gn/T/frum_17408_1660807817597/bin:/Users/uwussimo/.rbenv/bin:/Users/uwussimo/.volta/bin:/Users/uwussimo/.deno/bin:/Users/uwussimo/.jenv/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/python/libexec/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/uwussimo/.cargo/bin:/Users/uwussimo/Library/Application Support/JetBrains/Toolbox/scripts:/Users/uwussimo/.yarn/bin:/Users/uwussimo/Library/Application Support/JetBrains/Toolbox/scripts
+PATH = /Users/uwussimo/.bun/bin:/Users/uwussimo/.jenv/shims:/var/folders/cd/34fsn55n1njfndyxtq3_r1bc0000gn/T/frum_48094_1660831014456/bin:/Users/uwussimo/.rbenv/bin:/Users/uwussimo/.volta/bin:/Users/uwussimo/.deno/bin:/Users/uwussimo/.jenv/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/python/libexec/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Little Snitch.app/Contents/Components:/Library/Apple/usr/bin:/Users/uwussimo/.bun/bin:/Users/uwussimo/.jenv/shims:/var/folders/cd/34fsn55n1njfndyxtq3_r1bc0000gn/T/frum_39949_1660825608480/bin:/Users/uwussimo/.rbenv/bin:/Users/uwussimo/.volta/bin:/Users/uwussimo/.deno/bin:/Users/uwussimo/.jenv/bin:/opt/homebrew/opt/ruby/bin:/opt/homebrew/opt/python/libexec/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/uwussimo/.cargo/bin:/Users/uwussimo/Library/Application Support/JetBrains/Toolbox/scripts:/Users/uwussimo/.yarn/bin:/Users/uwussimo/Library/Application Support/JetBrains/Toolbox/scripts
 # environment
 PAT = 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
 # environment
@@ -59,7 +59,7 @@ MAKEFILE_LIST :=  Makefile
 # environment
 GOPATH = /Users/uwussimo/.go
 # environment
-FRUM_MULTISHELL_PATH = /var/folders/cd/34fsn55n1njfndyxtq3_r1bc0000gn/T/frum_35247_1660822195962
+FRUM_MULTISHELL_PATH = /var/folders/cd/34fsn55n1njfndyxtq3_r1bc0000gn/T/frum_48094_1660831014456
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # default
@@ -175,7 +175,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 35201
+VSCODE_PID = 48039
 # environment
 STARSHIP_SHELL = zsh
 # variable set hash-table stats:
@@ -187,9 +187,9 @@ STARSHIP_SHELL = zsh
 
 # Directories
 
-# . (device 16777229, inode 56751193): 21 files, no impossibilities.
+# . (device 16777229, inode 56751193): 22 files, no impossibilities.
 
-# 21 files, no impossibilities in 1 directories.
+# 22 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -272,6 +272,6 @@ lint:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Aug 18 16:29:59 2022
+# Finished Make data base on Thu Aug 18 18:56:58 2022
 
  

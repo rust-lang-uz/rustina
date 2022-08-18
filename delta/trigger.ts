@@ -26,12 +26,47 @@ composer.command("off", isReply, async (ctx: Context): Promise<void> => {
         `Offtopic guruhimizda istalgan mavzuda suhbatlashish ruxsat etiladi. Boshqalarga halaqit qilmayliga 😉` +
         `\n` +
         `\n` +
-        `<b>Hurmat ila, Xeonitte (Kseyonita)</b>`,
+        `<b>Hurmat ila, Rustina (Rastina)</b>`,
       {
         parse_mode: "HTML",
         reply_markup: new InlineKeyboard().url(
           `Offtop Chat`,
           `https://t.me/rustlanguz_offtopic`,
+        ),
+      },
+    );
+  }
+});
+
+composer.command("nometa", isReply, async (ctx: Context): Promise<void> => {
+  if (ctx?.message?.reply_to_message?.from?.id === ctx.me.id) {
+    await ctx.reply(`Ha-ha... yaxshi urinish!`, {
+      parse_mode: "HTML",
+    });
+  } else {
+    await ctx.api.deleteMessage(
+      ctx.message!.chat!.id,
+      ctx.message!.reply_to_message!.message_id,
+    );
+    await ctx.api.deleteMessage(
+      ctx.message!.chat!.id,
+      ctx.message!.message_id,
+    );
+    await ctx.reply(
+      `<b>Hurmatli <a href="tg://user?id=${ctx?.message?.reply_to_message?.from?.id}">${ctx?.message?.reply_to_message?.from?.first_name}</a>,</b>` +
+      `\n` +
+      `\n` +
+      `Tushunishim bo'yicha siz boshqalarni vaqtini isrof qilayabsiz. Iltimos, ` +
+      `quyidagi tugmachani bosish orqali to'g'ri savol berishni o'rganing! ` +
+      `Boshqalarni ham sizni kutgani ko'p vaqti yo'q. Hammaning vaqtini hurmat qilayliga 😉` +
+      `\n` +
+      `\n` +
+      `<b>Hurmat ila, Rustina (Rastina)</b>`,
+      {
+        parse_mode: "HTML",
+        reply_markup: new InlineKeyboard().url(
+          `Nometa Qo'llanmasi`,
+          `https://nometa.uz/`,
         ),
       },
     );
@@ -61,7 +96,7 @@ composer.command("nonoff", isReply, async (ctx: Context): Promise<void> => {
         `Linux haqida iloji boricha asosiy guruhimizda suhbatlashish tavsiya etiladi. Offtopchilarga halaqit qilmayliga 😉` +
         `\n` +
         `\n` +
-        `<b>Hurmat ila, Xeonitte (Kseyonita)</b>`,
+        `<b>Hurmat ila, Rustina (Rastina)</b>`,
       {
         parse_mode: "HTML",
         reply_markup: new InlineKeyboard().url(
