@@ -2,9 +2,11 @@ import { blue, Bot, serve, webhookCallback } from "./deps.ts";
 import "./utils/config.ts";
 import env from "./utils/config.ts";
 import delta from "./delta/mod.ts";
+import { Telegraph } from "./deps.ts";
 
 export const bot = new Bot(env["TOKEN"] || "");
 export const handle = webhookCallback(bot, "std/http");
+export const editor = new Telegraph({ accessToken: env["EDITOR"] });
 
 const initializer = async () => {
   await console.log(blue("[INFO]"), `bot is starting on ${env["HOST"]}`);

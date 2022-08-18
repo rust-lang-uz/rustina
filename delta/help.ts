@@ -10,6 +10,10 @@ export const message = `<b>Mavjud komandalar ro'yxati:</b>` +
   `\n` +
   `/useful - <code>rust haqida foydali yoki kerakli ma'lumotlar</code>` +
   `\n` +
+  `/last - <code>eng oxirgi reliz haqida qisqacha ma'lumot</code>` +
+  `\n` +
+  `/version - <code>biron anniq reliz haqida to'liq ma'lumot</code>` +
+  `\n` +
   `/off - <code>reply qilingan odamga offtop borligi haqida eslatish</code>` +
   `\n` +
   `/nometa - <code>to'g'ri savol berish haqida eslatma</code>` +
