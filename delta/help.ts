@@ -8,6 +8,8 @@ export const message = `<b>Mavjud komandalar ro'yxati:</b>` +
   `\n` +
   `/doc - <code>reply qilingan odamga dok borligi haqida eslatish</code>` +
   `\n` +
+  `/useful - <code>rust haqida foydali yoki kerakli ma'lumotlar</code>` +
+  `\n` +
   `/off - <code>reply qilingan odamga offtop borligi haqida eslatish</code>` +
   `\n` +
   `/group - <code>rust ga oid guruh va hamjamiyatlar</code>` +
