@@ -6,7 +6,6 @@ import {
   material,
   pager,
 } from "../utils/picker.ts";
-import { indexOf } from "https://deno.land/std@0.123.0/bytes/mod.ts";
 
 const composer = new Composer();
 const ctxMainMenuText =
