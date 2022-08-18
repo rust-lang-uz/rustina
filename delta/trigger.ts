@@ -54,14 +54,14 @@ composer.command("nometa", isReply, async (ctx: Context): Promise<void> => {
     );
     await ctx.reply(
       `<b>Hurmatli <a href="tg://user?id=${ctx?.message?.reply_to_message?.from?.id}">${ctx?.message?.reply_to_message?.from?.first_name}</a>,</b>` +
-      `\n` +
-      `\n` +
-      `Tushunishim bo'yicha siz boshqalarni vaqtini isrof qilayabsiz. Iltimos, ` +
-      `quyidagi tugmachani bosish orqali to'g'ri savol berishni o'rganing! ` +
-      `Boshqalarni ham sizni kutgani ko'p vaqti yo'q. Hammaning vaqtini hurmat qilayliga 😉` +
-      `\n` +
-      `\n` +
-      `<b>Hurmat ila, Rustina (Rastina)</b>`,
+        `\n` +
+        `\n` +
+        `Tushunishim bo'yicha siz boshqalarni vaqtini isrof qilayabsiz. Iltimos, ` +
+        `quyidagi tugmachani bosish orqali to'g'ri savol berishni o'rganing! ` +
+        `Boshqalarni ham sizni kutgani ko'p vaqti yo'q. Hammaning vaqtini hurmat qilayliga 😉` +
+        `\n` +
+        `\n` +
+        `<b>Hurmat ila, Rustina (Rastina)</b>`,
       {
         parse_mode: "HTML",
         reply_markup: new InlineKeyboard().url(
