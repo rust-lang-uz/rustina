@@ -12,6 +12,8 @@ export const message = `<b>Mavjud komandalar ro'yxati:</b>` +
   `\n` +
   `/off - <code>reply qilingan odamga offtop borligi haqida eslatish</code>` +
   `\n` +
+  `/nometa - <code>to'g'ri savol berish haqida eslatma</code>` +
+  `\n` +
   `/group - <code>rust ga oid guruh va hamjamiyatlar</code>` +
   `\n` +
   `/help - <code>ushbu xabarni qayta ko'rsatish</code>` +
