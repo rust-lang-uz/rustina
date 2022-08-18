@@ -4,7 +4,7 @@ import pager from "../utils/pager.ts";
 
 const composer = new Composer();
 const ctxMenuText =
-  "<b>Telegramdagi Rust Hamjamiyatlari yoki Guruhlari:</b>\nAgar o'zingizni guruhingizni qo'shmoqchi bo'lsangiz, bizni <a href='https://github.com/rust-lang-uz/telegram/blob/main/communities.json'>community.json</a> ni yangilang!";
+  "<b>Telegramdagi Rust Hamjamiyatlari yoki Guruhlari:</b>\nAgar o'zingizni guruhingizni qo'shmoqchi bo'lsangiz, bizni <a href='https://github.com/rust-lang-uz/rustina/blob/main/communities.json'>community.json</a> ni yangilang!";
 
 composer.command("group", async (ctx: Context): Promise<void> => {
   const keyboard = new InlineKeyboard();
