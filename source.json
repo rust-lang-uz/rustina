@@ -28,6 +28,11 @@
   ],
   "podcasts": [
     {
+      "name": "The Rustacean Station Podcast",
+      "desc": "Come journey with us into the weird, wonderful, and wily world of Rust",
+      "link": "https://rustacean-station.org/"
+    },
+    {
       "name": "New Rustacean",
       "desc": "For beginner Rustaceans",
       "link": "https://newrustacean.com/"
