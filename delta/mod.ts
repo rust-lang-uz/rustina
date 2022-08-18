@@ -7,6 +7,7 @@ import about from "./about.ts";
 import rules from "./rules.ts";
 import channel from "./channel.ts";
 import trigger from "./trigger.ts";
+import groups from "./groups.ts";
 
 export default async (bot: Bot) => {
   await bot
@@ -14,6 +15,7 @@ export default async (bot: Bot) => {
     .use(help)
     .use(inline)
     .use(which)
+    .use(groups)
     .use(about)
     .use(rules)
     .use(trigger)
