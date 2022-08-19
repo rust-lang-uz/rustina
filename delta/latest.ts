@@ -17,7 +17,7 @@ export const message = async (data: Release) =>
   `<b>Ushbu oxirgi relizni o'rnatish uchun terminalingizda</b> <code>rustup update</code> <b>buyrug'ini ishga tushuring!</b>`;
 
 export const keyboard = (data: Release) =>
-  new InlineKeyboard().url("More Information", data.html_url);
+  new InlineKeyboard().url("Ko'proq ma'lumotlar", data.html_url);
 
 composer.command("last", async (ctx: Context): Promise<void> => {
   const req = await last();
