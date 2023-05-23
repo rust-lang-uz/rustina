@@ -1,6 +1,7 @@
 import { Composer, Context, InlineKeyboard } from "../deps.ts";
 import { finder, pager as generator } from "../utils/generator.ts";
 import hecker from "../utils/checker.ts";
+import { reply } from "../utils/sender.ts";
 
 const composer = new Composer();
 const ctxMenuText = "<b>Rust Dasturlash tili versiyalari:</b>";
@@ -19,9 +20,7 @@ composer.command("version", async (ctx: Context): Promise<void> => {
     keyboard.text(`Keyingi ➡️`, `version_2`);
   }
 
-  await ctx.reply(ctxMenuText, {
-    parse_mode: "HTML",
-    reply_markup: keyboard,
+  await reply(ctx, ctxMenuText, keyboard, {
     disable_web_page_preview: true,
   });
 });

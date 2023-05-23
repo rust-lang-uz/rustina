@@ -6,14 +6,17 @@ import { Context, InlineKeyboard } from "../deps.ts";
  * @param ctx Context from Grammy.js middleware
  * @param message The message you want to send
  * @param buttons InlineKeyboard button to attach to the message
+ * @param configs Other configs to pass to the api
  */
 export const reply = async (
   ctx: Context,
   message: string,
   buttons?: InlineKeyboard,
+  ...configs: { [key: string]: any }[]
 ): Promise<any> => {
   const config: { [key: string]: any } = {
     parse_mode: "HTML",
+    ...configs,
   };
 
   if (ctx.message!.is_topic_message) {

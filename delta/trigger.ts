@@ -117,13 +117,14 @@ composer.command("doc", isReply, async (ctx: Context): Promise<void> => {
       parse_mode: "HTML",
     });
   } else {
-    const message = `<b>Demak, <a href="tg://user?id=${ctx?.message?.reply_to_message?.from?.id}">${ctx?.message?.reply_to_message?.from?.first_name}</a>,</b>` +
+    const message =
+      `<b>Demak, <a href="tg://user?id=${ctx?.message?.reply_to_message?.from?.id}">${ctx?.message?.reply_to_message?.from?.first_name}</a>,</b>` +
       `\n` +
       `\n` +
       `<i>Bir bor ekan, bir yo'q ekan... Qadim o'tgan zamonlarda dokumentatsiya ` +
       `bo'lgan ekan. Aytishlariga qaraganda, undan deyarli hamma savollarga ` +
       `javob olsa bo'larkanda. Yanachi, unga avtorlar shunchalik ko'p vaqt ajratishar ` +
-      `ekanu, lekin uni sanoqligina odam o'qisharkan. Attang...</i>`
+      `ekanu, lekin uni sanoqligina odam o'qisharkan. Attang...</i>`;
 
     await reply(ctx, message);
   }

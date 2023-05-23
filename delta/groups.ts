@@ -1,6 +1,7 @@
 import { Composer, Context, InlineKeyboard } from "../deps.ts";
 import communities from "../communities.json" assert { type: "json" };
 import pager from "../utils/pager.ts";
+import { reply } from "../utils/sender.ts";
 
 const composer = new Composer();
 const ctxMenuText =
@@ -20,9 +21,7 @@ composer.command("group", async (ctx: Context): Promise<void> => {
     keyboard.text(`Keyingi ➡️`, `group_2`);
   }
 
-  await ctx.reply(ctxMenuText, {
-    parse_mode: "HTML",
-    reply_markup: keyboard,
+  await reply(ctx, ctxMenuText, keyboard, {
     disable_web_page_preview: true,
   });
 });

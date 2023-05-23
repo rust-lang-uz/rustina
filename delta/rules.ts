@@ -1,5 +1,6 @@
 import { Composer, Context, InlineKeyboard } from "../deps.ts";
 import isPrivate from "../hooks/isPrivate.ts";
+import { reply } from "../utils/sender.ts";
 
 const composer = new Composer();
 
@@ -28,10 +29,7 @@ export const keyboard = new InlineKeyboard().url(
 );
 
 composer.command("rules", isPrivate, async (ctx: Context): Promise<void> => {
-  await ctx.reply(message, {
-    parse_mode: "HTML",
-    reply_markup: keyboard,
-  });
+  await reply(ctx, message, keyboard);
 });
 
 export default composer;

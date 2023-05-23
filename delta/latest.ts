@@ -2,6 +2,7 @@ import { Composer, Context, InlineKeyboard } from "../deps.ts";
 import type { Release } from "../types/Github.d.ts";
 import { last } from "../utils/generator.ts";
 import hecker from "../utils/checker.ts";
+import { reply } from "../utils/sender.ts";
 
 const composer = new Composer();
 
@@ -21,10 +22,7 @@ export const keyboard = (data: Release) =>
 
 composer.command("last", async (ctx: Context): Promise<void> => {
   const req = await last();
-  await ctx.reply(await message(req), {
-    parse_mode: "HTML",
-    reply_markup: keyboard(req),
-  });
+  await reply(ctx, await message(req), keyboard(req));
 });
 
 export default composer;

@@ -6,6 +6,7 @@ import {
   material,
   pager,
 } from "../utils/picker.ts";
+import { reply } from "../utils/sender.ts";
 
 const composer = new Composer();
 const ctxMainMenuText =
@@ -21,9 +22,7 @@ composer.command("useful", async (ctx: Context): Promise<void> => {
     ).row();
   }
 
-  await ctx.reply(ctxMainMenuText, {
-    parse_mode: "HTML",
-    reply_markup: keyboard,
+  await reply(ctx, ctxMainMenuText, keyboard, {
     disable_web_page_preview: true,
   });
 });
