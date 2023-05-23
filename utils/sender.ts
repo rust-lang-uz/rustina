@@ -12,7 +12,7 @@ export const reply = async (
   ctx: Context,
   message: string,
   buttons?: InlineKeyboard,
-  configs?: { [key: string]: any }
+  configs?: { [key: string]: any },
 ): Promise<any> => {
   const config: { [key: string]: any } = {
     parse_mode: "HTML",

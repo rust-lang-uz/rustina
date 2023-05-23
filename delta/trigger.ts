@@ -6,6 +6,7 @@ const composer = new Composer();
 
 composer.command("off", isReply, async (ctx: Context): Promise<void> => {
   if (ctx?.message?.reply_to_message?.from?.id === ctx.me.id) {
+    await ctx.reply(`Ha-ha... yaxshi urinish!`);
     await ctx.reply(`Ha-ha... yaxshi urinish!`, {
       parse_mode: "HTML",
     });
@@ -41,9 +42,7 @@ composer.command("off", isReply, async (ctx: Context): Promise<void> => {
 
 composer.command("nometa", isReply, async (ctx: Context): Promise<void> => {
   if (ctx?.message?.reply_to_message?.from?.id === ctx.me.id) {
-    await ctx.reply(`Ha-ha... yaxshi urinish!`, {
-      parse_mode: "HTML",
-    });
+    await ctx.reply(`Ha-ha... yaxshi urinish!`);
   } else {
     await ctx.api.deleteMessage(
       ctx.message!.chat!.id,
@@ -77,9 +76,7 @@ composer.command("nometa", isReply, async (ctx: Context): Promise<void> => {
 
 composer.command("nonoff", isReply, async (ctx: Context): Promise<void> => {
   if (ctx?.message?.reply_to_message?.from?.id === ctx.me.id) {
-    await ctx.reply(`Ha-ha... yaxshi urinish!`, {
-      parse_mode: "HTML",
-    });
+    await ctx.reply(`Ha-ha... yaxshi urinish!`);
   } else {
     await ctx.api.deleteMessage(
       ctx.message!.chat!.id,
@@ -113,9 +110,7 @@ composer.command("nonoff", isReply, async (ctx: Context): Promise<void> => {
 
 composer.command("doc", isReply, async (ctx: Context): Promise<void> => {
   if (ctx?.message?.reply_to_message?.from?.id === ctx.me.id) {
-    await ctx.reply(`Ha-ha... yaxshi urinish!`, {
-      parse_mode: "HTML",
-    });
+    await reply(ctx, `Ha-ha... yaxshi urinish!`);
   } else {
     const message =
       `<b>Demak, <a href="tg://user?id=${ctx?.message?.reply_to_message?.from?.id}">${ctx?.message?.reply_to_message?.from?.first_name}</a>,</b>` +
