@@ -6,7 +6,7 @@ export const hecker = async (
   version: string,
   content: string,
 ): Promise<Page> => {
-  const existing = (await editor.getPages());
+  const existing = await editor.getPages();
 
   for (const some of existing.pages) {
     if (some.title === `Rust ${version}`) {
