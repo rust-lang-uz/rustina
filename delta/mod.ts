@@ -1,4 +1,3 @@
-import inline from "./inline.ts";
 import which from "./which.ts";
 import { Bot } from "../deps.ts";
 import channel from "./channel.ts";
@@ -10,7 +9,6 @@ import version from "./version.ts";
 
 export default async (bot: Bot) => {
   await bot
-    .use(inline)
     .use(which)
     .use(groups)
     .use(useful)
