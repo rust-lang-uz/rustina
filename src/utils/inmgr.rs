@@ -25,8 +25,8 @@ pub fn view_generate(c: &Crate) -> String {
         c.downloads
     ));
     result.push_str(&format!(
-        "⌚️ <b>Yaratilgan:</b> <code>{}</code\n>",
-        c.created_at.naive_local().to_string()
+        "⌚️ <b>Yaratilgan:</b> <code>{}</code>\n",
+        c.created_at.date_naive().to_string()
     ));
     result.push_str(&format!(
         "📡 <b>Yangilangan:</b> <code>{}</code>\n",
@@ -50,6 +50,8 @@ pub fn view_generate(c: &Crate) -> String {
             ""
         }
     ));
+    result.push_str("🔌 <b>Cargo.toml fayliga qo'shib qo'ying:</b> \n");
+    result.push_str(&format!("<code>[dependencies]</code>\n<code>{} = \"{}\"</code>", c.name, c.max_version));
 
     result
 }
