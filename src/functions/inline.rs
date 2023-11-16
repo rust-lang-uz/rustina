@@ -1,8 +1,6 @@
-use crates_io_api::AsyncClient;
-use crates_io_api::CratesQuery;
+use crates_io_api::{AsyncClient, CratesQuery, Crate};
 use std::error::Error;
-use teloxide::prelude::*;
-use teloxide::types::*;
+use teloxide::{prelude::*, types::*};
 
 use crate::utils::inmgr::*;
 
@@ -32,13 +30,13 @@ pub async fn inline(
         };
     }
 
-    let query = CratesQuery::builder()
+    let request: CratesQuery = CratesQuery::builder()
         .search(q.query.clone())
         .page(1)
         .page_size(50)
         .build();
 
-    let request = crates_client.crates(query).await.unwrap().crates;
+    let request: Vec<Crate> = crates_client.crates(request).await.unwrap().crates;
 
     if request.is_empty() {
         return {
@@ -64,10 +62,8 @@ pub async fn inline(
         };
     }
 
-    let mut result: Vec<InlineQueryResult> = Vec::new();
-
-    for c in request.iter() {
-        result.push(InlineQueryResult::Article(
+    let request: Vec<InlineQueryResult> = request.iter().map(|c: &Crate| {
+        InlineQueryResult::Article(
             InlineQueryResultArticle::new(
                 uuid::Uuid::new_v4(),
                 c.name.clone(),
@@ -79,10 +75,10 @@ pub async fn inline(
             )
             .description(c.description.clone().unwrap())
             .url(url::Url::parse(&format!("https://crates.io/crates/{}", c.id)).unwrap())
-            .reply_markup(kb_generate(c).into()),
-        ));
-    }
+            .reply_markup(kb_generate(c)),
+        )
+    }).collect();
 
-    bot.answer_inline_query(q.id, result).send().await?;
+    bot.answer_inline_query(q.id, request).send().await?;
     Ok(())
 }

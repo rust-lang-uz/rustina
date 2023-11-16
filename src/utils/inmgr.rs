@@ -26,11 +26,11 @@ pub fn view_generate(c: &Crate) -> String {
     ));
     result.push_str(&format!(
         "⌚️ <b>Yaratilgan:</b> <code>{}</code>\n",
-        c.created_at.date_naive().to_string()
+        c.created_at.date_naive()
     ));
     result.push_str(&format!(
         "📡 <b>Yangilangan:</b> <code>{}</code>\n",
-        c.updated_at.date_naive().to_string()
+        c.updated_at.date_naive()
     ));
     result.push_str(&format!(
         "📰 <b>Ma'lumot:</b> <code>{}{}</code>\n\n",
