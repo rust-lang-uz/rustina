@@ -1,4 +1,4 @@
-use crate::utils::kbmng::Keyboard;
+use crate::{utils::kbmng::Keyboard, hooks};
 use teloxide::{
     payloads::SendMessageSetters,
     prelude::*,
@@ -20,6 +20,13 @@ pub fn keyboard() -> InlineKeyboardMarkup {
 }
 
 pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
+    if !msg.chat.is_private() {
+        return {
+            hooks::is_private(bot, msg).await.unwrap();
+            Ok(())
+        }
+    }
+
     bot.send_message(msg.chat.id, TEXT)
         .parse_mode(ParseMode::Html)
         .reply_markup(keyboard())
