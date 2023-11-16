@@ -19,12 +19,17 @@ pub enum Command {
 
     /// About the bot
     About,
+
+    /// Available groups
+    Groups,
 }
 
 pub fn handler() -> UpdateHandler<Box<dyn std::error::Error + Send + Sync + 'static>> {
     dptree::entry()
         // Inline Queries
         .branch(Update::filter_inline_query().endpoint(functions::inline))
+        // Callbacks
+        .branch(Update::filter_callback_query().endpoint(functions::callback))
         // Commands
         .branch(
             Update::filter_message()

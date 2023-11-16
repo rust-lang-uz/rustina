@@ -1,4 +1,4 @@
-use crates_io_api::{AsyncClient, CratesQuery, Crate};
+use crates_io_api::{AsyncClient, Crate, CratesQuery};
 use std::error::Error;
 use teloxide::{prelude::*, types::*};
 
@@ -62,22 +62,25 @@ pub async fn inline(
         };
     }
 
-    let request: Vec<InlineQueryResult> = request.iter().map(|c: &Crate| {
-        InlineQueryResult::Article(
-            InlineQueryResultArticle::new(
-                uuid::Uuid::new_v4(),
-                c.name.clone(),
-                InputMessageContent::Text(
-                    InputMessageContentText::new(view_generate(c))
-                        .parse_mode(ParseMode::Html)
-                        .disable_web_page_preview(true),
-                ),
+    let request: Vec<InlineQueryResult> = request
+        .iter()
+        .map(|c: &Crate| {
+            InlineQueryResult::Article(
+                InlineQueryResultArticle::new(
+                    uuid::Uuid::new_v4(),
+                    c.name.clone(),
+                    InputMessageContent::Text(
+                        InputMessageContentText::new(view_generate(c))
+                            .parse_mode(ParseMode::Html)
+                            .disable_web_page_preview(true),
+                    ),
+                )
+                .description(c.description.clone().unwrap())
+                .url(url::Url::parse(&format!("https://crates.io/crates/{}", c.id)).unwrap())
+                .reply_markup(kb_generate(c)),
             )
-            .description(c.description.clone().unwrap())
-            .url(url::Url::parse(&format!("https://crates.io/crates/{}", c.id)).unwrap())
-            .reply_markup(kb_generate(c)),
-        )
-    }).collect();
+        })
+        .collect();
 
     bot.answer_inline_query(q.id, request).send().await?;
     Ok(())
