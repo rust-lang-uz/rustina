@@ -1,6 +1,7 @@
 pub mod help;
 pub mod rules;
 pub mod start;
+pub mod about;
 
 pub use teloxide::prelude::*;
 
@@ -17,6 +18,7 @@ pub async fn commands(
         Command::Start => crate::functions::start::command(&bot, &msg).await,
         Command::Help => crate::functions::help::command(&bot, &msg, &cmd).await,
         Command::Rules => crate::functions::rules::command(&bot, &msg).await,
+        Command::About => crate::functions::about::command(&bot, &msg).await,
     };
 
     Ok(())

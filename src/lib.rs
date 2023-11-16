@@ -16,6 +16,9 @@ pub enum Command {
 
     /// Rules of our chat
     Rules,
+
+    /// About the bot
+    About,
 }
 
 pub fn handler() -> UpdateHandler<Box<dyn std::error::Error + Send + Sync + 'static>> {
