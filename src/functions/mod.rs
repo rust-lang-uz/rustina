@@ -1,12 +1,14 @@
+pub mod about;
 pub mod help;
+pub mod inline;
 pub mod rules;
 pub mod start;
-pub mod about;
 
-pub use teloxide::prelude::*;
+pub use inline::inline;
 
 use crate::Command;
 use std::error::Error;
+use teloxide::prelude::*;
 
 pub async fn commands(
     bot: Bot,

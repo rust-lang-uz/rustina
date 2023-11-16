@@ -41,6 +41,15 @@ impl Keyboard {
         self.get()
     }
 
+    pub fn switch_inline_current(&mut self, text: &str, query: &str) -> InlineKeyboardMarkup {
+        self.keyboard
+            .last_mut()
+            .unwrap()
+            .push(InlineKeyboardButton::switch_inline_query_current_chat(text, query));
+
+        self.get()
+    }
+
     /// Add next buttons from new line
     pub fn row(&mut self) -> InlineKeyboardMarkup {
         self.keyboard.push(vec![]);

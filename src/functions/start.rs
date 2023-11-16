@@ -13,14 +13,8 @@ Sizni ko'rib turganimdan bag'oyatda xursandman. Men O'zbek Rust jamiyati tomonid
 
 pub fn keyboard() -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
-    keyboard.url(
-        "Jamiyat",
-        "https://t.me/rustlanguz",
-    );
-    keyboard.url(
-        "Web Sahifa",
-        "https://rust-lang.uz",
-    )
+    keyboard.url("Jamiyat", "https://t.me/rustlanguz");
+    keyboard.url("Web Sahifa", "https://rust-lang.uz")
 }
 
 pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {

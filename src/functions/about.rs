@@ -1,4 +1,4 @@
-use crate::{utils::kbmng::Keyboard, hooks};
+use crate::{hooks, utils::kbmng::Keyboard};
 use teloxide::{
     payloads::SendMessageSetters,
     prelude::*,
@@ -13,10 +13,7 @@ Bizning botimiz aktiv tarzda shakllantirib boriladi. Buning ustida esa bir necha
 
 pub fn keyboard() -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
-    keyboard.url(
-        "Ochiq Havolalar",
-        "https://github.com/rust-lang-uz/rustina",
-    )
+    keyboard.url("Ochiq Havolalar", "https://github.com/rust-lang-uz/rustina")
 }
 
 pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
@@ -24,7 +21,7 @@ pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
         return {
             hooks::is_private(bot, msg).await.unwrap();
             Ok(())
-        }
+        };
     }
 
     bot.send_message(msg.chat.id, TEXT)

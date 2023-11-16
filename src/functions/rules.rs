@@ -21,10 +21,7 @@ Iltimos qoidalarga oz bo'lsada vaqt ajratishni unutmang, bu muhim! Ushbu guruhda
 
 pub fn keyboard() -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
-    keyboard.url(
-        "Guruhga qaytish",
-        "https://t.me/rustlanguz",
-    )
+    keyboard.url("Guruhga qaytish", "https://t.me/rustlanguz")
 }
 
 pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
@@ -32,7 +29,7 @@ pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
         return {
             hooks::is_private(bot, msg).await.unwrap();
             Ok(())
-        }
+        };
     }
 
     bot.send_message(msg.chat.id, TEXT)

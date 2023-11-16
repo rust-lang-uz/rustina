@@ -23,6 +23,8 @@ pub enum Command {
 
 pub fn handler() -> UpdateHandler<Box<dyn std::error::Error + Send + Sync + 'static>> {
     dptree::entry()
+        // Inline Queries
+        .branch(Update::filter_inline_query().endpoint(functions::inline))
         // Commands
         .branch(
             Update::filter_message()
