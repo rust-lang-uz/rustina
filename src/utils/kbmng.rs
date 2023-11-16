@@ -42,10 +42,9 @@ impl Keyboard {
     }
 
     pub fn switch_inline_current(&mut self, text: &str, query: &str) -> InlineKeyboardMarkup {
-        self.keyboard
-            .last_mut()
-            .unwrap()
-            .push(InlineKeyboardButton::switch_inline_query_current_chat(text, query));
+        self.keyboard.last_mut().unwrap().push(
+            InlineKeyboardButton::switch_inline_query_current_chat(text, query),
+        );
 
         self.get()
     }

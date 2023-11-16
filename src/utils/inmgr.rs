@@ -51,7 +51,10 @@ pub fn view_generate(c: &Crate) -> String {
         }
     ));
     result.push_str("🔌 <b>Cargo.toml fayliga qo'shib qo'ying:</b> \n");
-    result.push_str(&format!("<code>[dependencies]</code>\n<code>{} = \"{}\"</code>", c.name, c.max_version));
+    result.push_str(&format!(
+        "<code>[dependencies]</code>\n<code>{} = \"{}\"</code>",
+        c.name, c.max_version
+    ));
 
     result
 }
@@ -59,7 +62,10 @@ pub fn view_generate(c: &Crate) -> String {
 pub fn kb_generate(c: &Crate) -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
 
-    keyboard.url("Crate", format!("https://crates.io/crates/{}", c.name).as_str());
+    keyboard.url(
+        "Crate",
+        format!("https://crates.io/crates/{}", c.name).as_str(),
+    );
 
     if c.homepage.is_some() {
         keyboard.url("Asosiy", &c.homepage.clone().unwrap());

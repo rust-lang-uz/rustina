@@ -49,8 +49,8 @@ pub async fn inline(
                     "Xatolik yuz berdi!",
                     InputMessageContent::Text(
                         InputMessageContentText::new(
-                            format!("<b>{} ga oid natija mavjud emas!</b>\n{}", 
-                            q.query.clone(), "Iltimos, boshqattan ushbu qidirmoqchi bo'lgan paketingiz yozib qidirib ko'ring!")
+                            format!("<b>{} ga oid natija mavjud emas!</b>\nIltimos, boshqattan ushbu qidirmoqchi bo'lgan paketingiz yozib qidirib ko'ring!", 
+                            q.query.clone())
                         )
                             .parse_mode(ParseMode::Html)
                             .disable_web_page_preview(true),
@@ -79,9 +79,8 @@ pub async fn inline(
             )
             .description(c.description.clone().unwrap())
             .url(url::Url::parse(&format!("https://crates.io/crates/{}", c.id)).unwrap())
-            .reply_markup(kb_generate(c)
-            .into(),
-        )));
+            .reply_markup(kb_generate(c).into()),
+        ));
     }
 
     bot.answer_inline_query(q.id, result).send().await?;
