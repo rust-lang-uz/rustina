@@ -79,8 +79,9 @@ pub async fn inline(
             )
             .description(c.description.clone().unwrap())
             .url(url::Url::parse(&format!("https://crates.io/crates/{}", c.id)).unwrap())
+            .reply_markup(kb_generate(c)
             .into(),
-        ));
+        )));
     }
 
     bot.answer_inline_query(q.id, result).send().await?;

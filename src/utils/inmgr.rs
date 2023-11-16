@@ -56,6 +56,29 @@ pub fn view_generate(c: &Crate) -> String {
     result
 }
 
+pub fn kb_generate(c: &Crate) -> InlineKeyboardMarkup {
+    let mut keyboard = Keyboard::new();
+
+    keyboard.url("Crate", format!("https://crates.io/crates/{}", c.name).as_str());
+
+    if c.homepage.is_some() {
+        keyboard.url("Asosiy", &c.homepage.clone().unwrap());
+        keyboard.row();
+    }
+
+    if c.documentation.is_some() {
+        keyboard.url("Dokumentatsiya", &c.documentation.clone().unwrap());
+        keyboard.row();
+    }
+
+    if c.repository.is_some() {
+        keyboard.url("Repozitoriya", &c.repository.clone().unwrap());
+        keyboard.row();
+    }
+
+    keyboard.get()
+}
+
 pub fn err_keyboard() -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
     keyboard.switch_inline_current("Qayta urinib ko'ramizmi?", "rand")
