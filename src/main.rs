@@ -1,5 +1,8 @@
 use crates_io_api::AsyncClient;
-use rustina::{handler, utils::{github::GitHub, group_manager::Groups}};
+use rustina::{
+    handler,
+    utils::{github::GitHub, group_manager::Groups},
+};
 use std::error::Error;
 use teloxide::prelude::*;
 

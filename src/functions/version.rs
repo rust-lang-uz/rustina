@@ -45,8 +45,12 @@ pub async fn callback_list(
     Ok(())
 }
 
-
-pub async fn callback_detail(bot: &Bot, q: &CallbackQuery, args: &Vec<&str>, github: GitHub) -> ResponseResult<()> {
+pub async fn callback_detail(
+    bot: &Bot,
+    q: &CallbackQuery,
+    args: &Vec<&str>,
+    github: GitHub,
+) -> ResponseResult<()> {
     let page = args[0].parse::<u32>().unwrap();
     let version: Release = github.get_detail(args[1]).await.unwrap();
 
@@ -88,7 +92,10 @@ pub fn keyboard_list(
     let mut keyboard = Keyboard::new();
 
     for release in releases {
-        keyboard.text(&release.tag_name, &format!("changelog_{}_{}", page, release.tag_name));
+        keyboard.text(
+            &release.tag_name,
+            &format!("changelog_{}_{}", page, release.tag_name),
+        );
         keyboard.row();
     }
 
@@ -103,10 +110,7 @@ pub fn keyboard_list(
     keyboard.get()
 }
 
-pub fn keyboard_detail(
-    page: u32,
-    release: Release,
-) -> InlineKeyboardMarkup {
+pub fn keyboard_detail(page: u32, release: Release) -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
 
     keyboard.url("📝 GitHub da o'qish", release.html_url.as_str());
@@ -115,4 +119,3 @@ pub fn keyboard_detail(
 
     keyboard.get()
 }
-
