@@ -2,7 +2,7 @@ pub mod functions;
 pub mod hooks;
 pub mod utils;
 
-use teloxide::{dispatching::UpdateHandler, prelude::*, utils::command::BotCommands};
+use teloxide::{dispatching::{UpdateHandler, UpdateFilterExt}, prelude::*, utils::command::BotCommands};
 
 #[derive(BotCommands, Clone, Debug)]
 #[command(rename_rule = "lowercase", parse_with = "split")]
@@ -41,5 +41,9 @@ pub fn handler() -> UpdateHandler<Box<dyn std::error::Error + Send + Sync + 'sta
             Update::filter_message()
                 .filter_command::<Command>()
                 .endpoint(functions::commands),
+        )
+        .branch(
+            Update::filter_message()
+            .endpoint(functions::triggers),
         )
 }

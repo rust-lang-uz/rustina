@@ -10,8 +10,7 @@ use teloxide::{
 
 static TEXT: &str = "<b>Telegramdagi Rust Hamjamiyatlari yoki Guruhlari:</b>\nAgar o'zingizni guruhingizni qo'shmoqchi bo'lsangiz, bizni <a href='https://github.com/rust-lang-uz/rustina/blob/main/communities.json'>community.json</a> ni yangilang!";
 
-pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
-    let groups: Groups = Groups::new();
+pub async fn command(bot: &Bot, msg: &Message, groups: &Groups) -> ResponseResult<()> {
 
     bot.send_message(msg.chat.id, TEXT)
         .parse_mode(ParseMode::Html)
@@ -21,9 +20,7 @@ pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
     Ok(())
 }
 
-pub async fn callback_list(bot: &Bot, q: &CallbackQuery, args: &Vec<&str>) -> ResponseResult<()> {
-    let groups: Groups = Groups::new();
-
+pub async fn callback_list(bot: &Bot, q: &CallbackQuery, args: &Vec<&str>, groups: &Groups) -> ResponseResult<()> {
     if !args.is_empty() {
         if let Some(Message { id, chat, .. }) = q.message.clone() {
             bot.edit_message_text(chat.id, id, TEXT)
