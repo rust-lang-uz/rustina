@@ -1,4 +1,4 @@
-use crate::utils::{group_manager::Groups, keyboard_manager::Keyboard};
+use crate::utils::{group_manager::{Groups, Group}, keyboard_manager::Keyboard};
 use teloxide::{
     payloads::SendMessageSetters,
     prelude::*,
@@ -12,26 +12,20 @@ pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
 
     bot.send_message(msg.chat.id, TEXT)
         .parse_mode(ParseMode::Html)
-        .reply_markup(keyboard(&groups, 1))
+        .reply_markup(keyboard_list(&groups, 1))
         .await?;
 
     Ok(())
 }
 
-pub async fn callback(bot: &Bot, q: &CallbackQuery, args: &Vec<&str>) -> ResponseResult<()> {
+pub async fn callback_list(bot: &Bot, q: &CallbackQuery, args: &Vec<&str>) -> ResponseResult<()> {
     let groups: Groups = Groups::new();
-    
-    // Parse page
-    let page: i32 = match args[1].parse() {
-        Ok(page) => page,
-        Err(_) => 1,
-    };
 
-    if args.is_empty() {
+    if !args.is_empty() {
         if let Some(Message { id, chat, .. }) = q.message.clone() {
             bot.edit_message_text(chat.id, id, TEXT)
                 .parse_mode(ParseMode::Html)
-                .reply_markup(keyboard(&groups, page))
+                .reply_markup(keyboard_list(&groups, args[0].parse().unwrap_or(1)))
                 .await?;
         } else if let Some(id) = q.inline_message_id.clone() {
             bot.edit_message_text_inline(id, "Oopsie, something went wrong...")
@@ -42,7 +36,37 @@ pub async fn callback(bot: &Bot, q: &CallbackQuery, args: &Vec<&str>) -> Respons
     Ok(())
 }
 
-pub fn keyboard(groups: &Groups, page: i32) -> InlineKeyboardMarkup {
+pub async fn callback_detail(bot: &Bot, q: &CallbackQuery, args: &Vec<&str>) -> ResponseResult<()> {
+    let groups: Groups = Groups::new();
+    let find = groups.find_group(args[1..].join("_").to_string());
+
+    if !args.is_empty() {
+        if let Some(Message { id, chat, .. }) = q.message.clone() {
+            bot.edit_message_text(chat.id, id, view_detail(&find))
+                .parse_mode(ParseMode::Html)
+                .reply_markup(keyboard_detail( args[0].parse().unwrap_or(1), &find))
+                .await?;
+        } else if let Some(id) = q.inline_message_id.clone() {
+            bot.edit_message_text_inline(id, "Oopsie, something went wrong...")
+                .await?;
+        }
+    }
+
+    Ok(())
+}
+
+pub fn view_detail(data: &Option<Group>) -> String {
+    match data {
+        Some(d) => {
+            format!("<b>{}</b>\n\n<i>{}</i>\n\n<b>Use the following buttons to get to the links:</b>", d.name, d.about)
+        },
+        None => {
+            "<b>Ushbu guruh mavjud emas!</b>".to_string()
+        }
+    }
+}
+
+pub fn keyboard_list(groups: &Groups, page: i32) -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
 
     for group in groups.get_groups(page, 5) {
@@ -58,11 +82,31 @@ pub fn keyboard(groups: &Groups, page: i32) -> InlineKeyboardMarkup {
     }
 
     if !groups.get_groups(page + 1, 5).is_empty() {
-        keyboard.text(&"Keyingi ➡️", &format!("group_{}", page + 1));
+        keyboard.text("Keyingi ➡️", &format!("group_{}", page + 1));
     }
 
     if page > 1 {
-        keyboard.text(&"⬅️ Oldingi", &format!("group_{}", page - 1));
+        keyboard.text("⬅️ Oldingi", &format!("group_{}", page - 1));
+    }
+
+    keyboard.get()
+}
+
+pub fn keyboard_detail(page: i32, data: &Option<Group>) -> InlineKeyboardMarkup {
+    let mut keyboard = Keyboard::new();
+
+    if let Some(group) = data {
+        keyboard.url("Telegram", &format!("https://t.me/{}", group.telegram));
+        
+        if group.link.is_some() {
+            keyboard.url("Web", &group.link.clone().unwrap());
+        }
+
+        keyboard.row();
+
+        keyboard.text("🔙 Orqaga", &format!("group_{}", page));
+    } else {
+        keyboard.text("🔙 Orqaga", &format!("group_{}", page));
     }
 
     keyboard.get()

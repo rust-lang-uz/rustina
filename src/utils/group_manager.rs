@@ -26,8 +26,6 @@ impl Groups {
         let start = (page_number - 1) * page_size;
         let end = page_number * page_size;
 
-        println!("start: {}, end: {}", start, end);
-
         if start < 0 || end < 0 {
             return Vec::new();
         }
@@ -41,5 +39,15 @@ impl Groups {
         }
 
         self.groups[start as usize..end as usize].to_vec()
+    }
+
+    pub fn find_group(&self, query: String) -> Option<Group> {
+        let search: Vec<&Group>  = self.groups.iter().filter(|group| group.telegram[1..] == query).collect();
+
+        if search.is_empty() {
+            return None;
+        }
+
+        Some(search[0].clone())
     }
 }

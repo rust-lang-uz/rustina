@@ -31,19 +31,16 @@ pub async fn commands(
 pub async fn callback(bot: Bot, q: CallbackQuery) -> Result<(), Box<dyn Error + Send + Sync>> {
     let mut args: Vec<&str> = Vec::new();
 
-    println!("Receiving callback: {:?}", q.data);
-
     if let Some(data) = q.data.clone() {
-        if data.contains("_") {
-            args = data.split("_").collect();
+        if data.contains('_') {
+            args = data.split('_').collect();
         } else {
             args.push(&data);
         }
 
-        println!("Parsed arguments: {:?}", args);
-
-        let _ = match args[0] {
-            "group" => crate::functions::groups::callback(&bot, &q, &args).await,
+        let _ = match args.remove(0) {
+            "group" => crate::functions::groups::callback_list(&bot, &q, &args).await,
+            "detail" => crate::functions::groups::callback_detail(&bot, &q, &args).await,
             _ => Ok(()),
         };
     }
