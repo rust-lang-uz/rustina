@@ -1,4 +1,4 @@
-use super::kbmng::Keyboard;
+use super::keyboard_manager::Keyboard;
 use crates_io_api::Crate;
 use teloxide::types::*;
 

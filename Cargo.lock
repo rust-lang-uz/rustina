@@ -962,6 +962,8 @@ dependencies = [
  "crates_io_api",
  "log",
  "pretty_env_logger",
+ "serde",
+ "serde_json",
  "teloxide",
  "tokio",
  "url",

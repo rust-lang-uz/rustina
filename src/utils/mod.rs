@@ -1,2 +1,3 @@
-pub mod inmgr;
-pub mod kbmng;
+pub mod group_manager;
+pub mod inline_manager;
+pub mod keyboard_manager;

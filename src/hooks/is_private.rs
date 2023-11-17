@@ -4,7 +4,7 @@ use teloxide::{
     types::{InlineKeyboardMarkup, ParseMode},
 };
 
-use crate::utils::kbmng::Keyboard;
+use crate::utils::keyboard_manager::Keyboard;
 
 static TEXT: &str = "⚠️ <b>Bu komanda faqat shaxsiy chat uchun!</b>";
 

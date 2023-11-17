@@ -20,7 +20,7 @@ impl Keyboard {
     }
 
     /// Add a text callback to keyboard
-    pub fn text(&mut self, text: &String, callback: &String) -> InlineKeyboardMarkup {
+    pub fn text(&mut self, text: &str, callback: &str) -> InlineKeyboardMarkup {
         self.keyboard
             .last_mut()
             .unwrap()

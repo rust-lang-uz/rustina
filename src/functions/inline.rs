@@ -2,7 +2,7 @@ use crates_io_api::{AsyncClient, Crate, CratesQuery};
 use std::error::Error;
 use teloxide::{prelude::*, types::*};
 
-use crate::utils::inmgr::*;
+use crate::utils::inline_manager::*;
 
 pub async fn inline(
     bot: Bot,

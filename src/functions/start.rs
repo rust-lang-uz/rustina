@@ -1,4 +1,4 @@
-use crate::utils::kbmng::Keyboard;
+use crate::utils::keyboard_manager::Keyboard;
 use teloxide::{
     payloads::SendMessageSetters,
     prelude::*,
