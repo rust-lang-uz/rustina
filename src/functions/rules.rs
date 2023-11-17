@@ -19,11 +19,6 @@ Iltimos qoidalarga oz bo'lsada vaqt ajratishni unutmang, bu muhim! Ushbu guruhda
 <b>Ushbu qoidalarni doimiy tarzda buzish, butunlay ban yoki bir necha ogohlantirishlirga olib keladi!</b>
 "#;
 
-pub fn keyboard() -> InlineKeyboardMarkup {
-    let mut keyboard = Keyboard::new();
-    keyboard.url("Guruhga qaytish", "https://t.me/rustlanguz")
-}
-
 pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
     if !msg.chat.is_private() {
         return {
@@ -38,4 +33,9 @@ pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
         .await?;
 
     Ok(())
+}
+
+pub fn keyboard() -> InlineKeyboardMarkup {
+    let mut keyboard = Keyboard::new();
+    keyboard.url("Guruhga qaytish", "https://t.me/rustlanguz")
 }

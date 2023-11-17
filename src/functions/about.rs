@@ -11,11 +11,6 @@ static TEXT: &str = r#"
 Bizning botimiz aktiv tarzda shakllantirib boriladi. Buning ustida esa bir necha avtor va dasturchilar turadi, ushbu havolalar orqali bizning sinovchilarimizdan biriga aylaning va biz bilan botimiz, hamda guruhimiz ishlatish qulayligini oshiring.
 "#;
 
-pub fn keyboard() -> InlineKeyboardMarkup {
-    let mut keyboard = Keyboard::new();
-    keyboard.url("Ochiq Havolalar", "https://github.com/rust-lang-uz/rustina")
-}
-
 pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
     if !msg.chat.is_private() {
         return {
@@ -30,4 +25,9 @@ pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
         .await?;
 
     Ok(())
+}
+
+pub fn keyboard() -> InlineKeyboardMarkup {
+    let mut keyboard = Keyboard::new();
+    keyboard.url("Ochiq Havolalar", "https://github.com/rust-lang-uz/rustina")
 }

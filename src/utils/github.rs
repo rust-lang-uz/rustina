@@ -6,6 +6,12 @@ pub struct GitHub {
     client: Octocrab,
 }
 
+impl Default for GitHub {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl GitHub {
     pub fn new() -> Self {
         Self {

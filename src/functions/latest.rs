@@ -19,12 +19,12 @@ pub async fn command(bot: &Bot, github: GitHub, msg: &Message) -> ResponseResult
 
 pub fn view(release: &Release) -> String {
     format!(
-        "<b>Hozirgi eng oxirgi versiya bu <a href=\"{}\">\
+        "<b>Hozirgi eng oxirgi versiya bu <a href=\"https://releases.rs/docs/{}\">\
         {}</a> va ushbu reliz </b> <code>{}</code> da e'lon qilingan <a href=\"{}\">\
         {}</a> tomonidan.\
         \n\n\
         ",
-        format!("https://releases.rs/docs/{}", release.tag_name),
+        release.tag_name,
         release.tag_name,
         release.published_at.unwrap().date_naive(),
         release.author.html_url,

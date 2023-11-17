@@ -13,7 +13,7 @@ static TEXT: &str = "<b>Telegramdagi Rust Hamjamiyatlari yoki Guruhlari:</b>\nAg
 pub async fn command(bot: &Bot, msg: &Message, groups: &Groups) -> ResponseResult<()> {
     bot.send_message(msg.chat.id, TEXT)
         .parse_mode(ParseMode::Html)
-        .reply_markup(keyboard_list(&groups, 1))
+        .reply_markup(keyboard_list(groups, 1))
         .await?;
 
     Ok(())
@@ -29,7 +29,7 @@ pub async fn callback_list(
         if let Some(Message { id, chat, .. }) = q.message.clone() {
             bot.edit_message_text(chat.id, id, TEXT)
                 .parse_mode(ParseMode::Html)
-                .reply_markup(keyboard_list(&groups, args[0].parse().unwrap_or(1)))
+                .reply_markup(keyboard_list(groups, args[0].parse().unwrap_or(1)))
                 .await?;
         } else if let Some(id) = q.inline_message_id.clone() {
             bot.edit_message_text_inline(id, "Oopsie, something went wrong...")
@@ -80,7 +80,7 @@ pub fn keyboard_list(groups: &Groups, page: i32) -> InlineKeyboardMarkup {
             &format!(
                 "detail_{}_{}",
                 page,
-                group.telegram.clone().replace("@", "")
+                group.telegram.clone().replace('@', "")
             ),
         );
         keyboard.row();

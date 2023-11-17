@@ -15,6 +15,12 @@ pub struct Groups {
     groups: Vec<Group>,
 }
 
+impl Default for Groups {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Groups {
     pub fn new() -> Self {
         let json: Vec<Group> = serde_json::from_str(GROUPS).unwrap();
