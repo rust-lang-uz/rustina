@@ -1,9 +1,9 @@
 pub mod about;
+pub mod groups;
 pub mod help;
 pub mod inline;
 pub mod rules;
 pub mod start;
-pub mod groups;
 
 pub use inline::inline;
 
@@ -40,7 +40,7 @@ pub async fn callback(bot: Bot, q: CallbackQuery) -> Result<(), Box<dyn Error + 
 
         let _ = match args[0] {
             "group" => crate::functions::groups::callback(&bot, &q, &args).await,
-            _ => Ok(())
+            _ => Ok(()),
         };
     }
 

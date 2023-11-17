@@ -5,7 +5,7 @@ use teloxide::{
     types::{InlineKeyboardMarkup, ParseMode},
 };
 
-static TEXT: &str = r#"<b>Telegramdagi Rust Hamjamiyatlari yoki Guruhlari:</b>\nAgar o'zingizni guruhingizni qo'shmoqchi bo'lsangiz, bizni <a href='https://github.com/rust-lang-uz/rustina/blob/main/communities.json'>community.json</a> ni yangilang!"#;
+static TEXT: &str = "<b>Telegramdagi Rust Hamjamiyatlari yoki Guruhlari:</b>\nAgar o'zingizni guruhingizni qo'shmoqchi bo'lsangiz, bizni <a href='https://github.com/rust-lang-uz/rustina/blob/main/communities.json'>community.json</a> ni yangilang!";
 
 pub fn keyboard() -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
@@ -30,11 +30,10 @@ pub async fn callback(bot: &Bot, q: &CallbackQuery, args: &Vec<&str>) -> Respons
                 .reply_markup(keyboard())
                 .await?;
         } else if let Some(id) = q.inline_message_id.clone() {
-            bot.edit_message_text_inline(id, "Oopsie, something went wrong...").await?;
+            bot.edit_message_text_inline(id, "Oopsie, something went wrong...")
+                .await?;
         }
     }
-
-
 
     Ok(())
 }
