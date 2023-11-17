@@ -1,5 +1,5 @@
 use crates_io_api::AsyncClient;
-use rustina::handler;
+use rustina::{handler, utils::github::GitHub};
 use std::error::Error;
 use teloxide::prelude::*;
 
@@ -16,8 +16,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
     )
     .unwrap();
 
+    let github = GitHub::new();
+
     Dispatcher::builder(bot, handler())
-        .dependencies(dptree::deps![crates_client])
+        .dependencies(dptree::deps![crates_client, github])
         // If no handler succeeded to handle an update, this closure will be called
         .default_handler(|upd| async move {
             log::warn!("Unhandled update: {:?}", upd);

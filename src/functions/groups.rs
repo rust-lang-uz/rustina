@@ -1,4 +1,7 @@
-use crate::utils::{group_manager::{Groups, Group}, keyboard_manager::Keyboard};
+use crate::utils::{
+    group_manager::{Group, Groups},
+    keyboard_manager::Keyboard,
+};
 use teloxide::{
     payloads::SendMessageSetters,
     prelude::*,
@@ -44,7 +47,7 @@ pub async fn callback_detail(bot: &Bot, q: &CallbackQuery, args: &Vec<&str>) -> 
         if let Some(Message { id, chat, .. }) = q.message.clone() {
             bot.edit_message_text(chat.id, id, view_detail(&find))
                 .parse_mode(ParseMode::Html)
-                .reply_markup(keyboard_detail( args[0].parse().unwrap_or(1), &find))
+                .reply_markup(keyboard_detail(args[0].parse().unwrap_or(1), &find))
                 .await?;
         } else if let Some(id) = q.inline_message_id.clone() {
             bot.edit_message_text_inline(id, "Oopsie, something went wrong...")
@@ -58,11 +61,12 @@ pub async fn callback_detail(bot: &Bot, q: &CallbackQuery, args: &Vec<&str>) -> 
 pub fn view_detail(data: &Option<Group>) -> String {
     match data {
         Some(d) => {
-            format!("<b>{}</b>\n\n<i>{}</i>\n\n<b>Use the following buttons to get to the links:</b>", d.name, d.about)
-        },
-        None => {
-            "<b>Ushbu guruh mavjud emas!</b>".to_string()
+            format!(
+                "<b>{}</b>\n\n<i>{}</i>\n\n<b>Use the following buttons to get to the links:</b>",
+                d.name, d.about
+            )
         }
+        None => "<b>Ushbu guruh mavjud emas!</b>".to_string(),
     }
 }
 
@@ -97,7 +101,7 @@ pub fn keyboard_detail(page: i32, data: &Option<Group>) -> InlineKeyboardMarkup 
 
     if let Some(group) = data {
         keyboard.url("Telegram", &format!("https://t.me/{}", group.telegram));
-        
+
         if group.link.is_some() {
             keyboard.url("Web", &group.link.clone().unwrap());
         }

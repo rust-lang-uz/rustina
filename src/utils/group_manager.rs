@@ -42,7 +42,11 @@ impl Groups {
     }
 
     pub fn find_group(&self, query: String) -> Option<Group> {
-        let search: Vec<&Group>  = self.groups.iter().filter(|group| group.telegram[1..] == query).collect();
+        let search: Vec<&Group> = self
+            .groups
+            .iter()
+            .filter(|group| group.telegram[1..] == query)
+            .collect();
 
         if search.is_empty() {
             return None;

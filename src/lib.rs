@@ -22,6 +22,12 @@ pub enum Command {
 
     /// Available groups
     Groups,
+
+    /// Latest version
+    Latest,
+
+    /// Specific version
+    Version,
 }
 
 pub fn handler() -> UpdateHandler<Box<dyn std::error::Error + Send + Sync + 'static>> {
