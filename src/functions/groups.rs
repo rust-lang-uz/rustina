@@ -1,6 +1,6 @@
 use crate::utils::{
-    group_manager::{Group, Groups},
-    keyboard_manager::Keyboard,
+    groups::{Group, Groups},
+    keyboard::Keyboard,
 };
 use teloxide::{
     payloads::SendMessageSetters,

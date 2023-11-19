@@ -35,6 +35,9 @@ pub enum Command {
 
     /// Report offtopic
     Off,
+
+    /// Useful resources
+    Useful,
 }
 
 pub fn handler() -> UpdateHandler<Box<dyn std::error::Error + Send + Sync + 'static>> {

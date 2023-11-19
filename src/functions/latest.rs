@@ -1,4 +1,4 @@
-use crate::utils::{github::GitHub, keyboard_manager::Keyboard};
+use crate::utils::{github::GitHub, keyboard::Keyboard};
 use octocrab::models::repos::Release;
 use teloxide::{
     payloads::SendMessageSetters,

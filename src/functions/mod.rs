@@ -8,16 +8,15 @@ pub mod latest;
 pub mod offtop;
 pub mod rules;
 pub mod start;
+pub mod useful;
 pub mod version;
 
 pub use inline::inline;
 
-use crate::utils::github::GitHub;
-use crate::utils::group_manager::Groups;
+use crate::utils::{github::GitHub, groups::Groups, resources::Resources};
 use crate::Command;
 use std::error::Error;
-use teloxide::prelude::*;
-use teloxide::types::*;
+use teloxide::{prelude::*, types::*};
 
 pub async fn commands(
     bot: Bot,
@@ -26,6 +25,7 @@ pub async fn commands(
     cmd: Command,
     github: GitHub,
     groups: Groups,
+    resources: Resources,
 ) -> Result<(), Box<dyn Error + Send + Sync>> {
     let _ = match cmd {
         Command::Start => crate::functions::start::command(&bot, &msg).await,
@@ -36,6 +36,7 @@ pub async fn commands(
         Command::Latest => crate::functions::latest::command(&bot, github, &msg).await,
         Command::Version => crate::functions::version::command(&bot, github, &msg).await,
         Command::Off => crate::functions::offtop::command(&bot, &msg, &me).await,
+        Command::Useful => crate::functions::useful::command(&bot, &msg, &resources).await,
     };
 
     Ok(())
