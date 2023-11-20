@@ -1,4 +1,5 @@
 use teloxide::{prelude::*, types::*};
+use crate::utils::keyboard::Keyboard;
 
 static TEXT_FAIL: &str = "Ha-ha... yaxshi urinish!";
 static TEXT_NON_REPLY: &str = "↪ Reply bilan ko'rsatingchi habarni!";
@@ -27,6 +28,7 @@ pub async fn command(bot: &Bot, msg: &Message, me: &Me) -> ResponseResult<()> {
 
     bot.send_message(msg.chat.id, view(msg.reply_to_message().unwrap()))
         .parse_mode(ParseMode::Html)
+        .reply_markup(keyboard())
         .await?;
 
     Ok(())
@@ -44,4 +46,9 @@ pub fn view(msg: &Message) -> String {
         msg.from().unwrap().id,
         msg.from().unwrap().first_name
     )
+}
+
+pub fn keyboard() -> InlineKeyboardMarkup {
+    let mut keyboard = Keyboard::new();
+    keyboard.url("Offtopic", "https://t.me/rustlanguz/9400")
 }
