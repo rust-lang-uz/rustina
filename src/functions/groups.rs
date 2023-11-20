@@ -3,7 +3,7 @@ use crate::utils::{
     keyboard::Keyboard,
 };
 use teloxide::{
-    payloads::SendMessageSetters,
+    payloads::{SendMessageSetters, EditMessageTextSetters},
     prelude::*,
     types::{InlineKeyboardMarkup, ParseMode},
 };
@@ -14,6 +14,7 @@ pub async fn command(bot: &Bot, msg: &Message, groups: &Groups) -> ResponseResul
     bot.send_message(msg.chat.id, TEXT)
         .parse_mode(ParseMode::Html)
         .reply_markup(keyboard_list(groups, 1))
+        .disable_web_page_preview(true)
         .await?;
 
     Ok(())
@@ -30,6 +31,7 @@ pub async fn callback_list(
             bot.edit_message_text(chat.id, id, TEXT)
                 .parse_mode(ParseMode::Html)
                 .reply_markup(keyboard_list(groups, args[0].parse().unwrap_or(1)))
+                .disable_web_page_preview(true)
                 .await?;
         } else if let Some(id) = q.inline_message_id.clone() {
             bot.edit_message_text_inline(id, "Oopsie, something went wrong...")

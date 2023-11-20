@@ -3,21 +3,16 @@ use crate::Command;
 use teloxide::{payloads::SendMessageSetters, prelude::*, types::ParseMode};
 
 static TEXT: &[(&str, &str)] = &[
-    ("docs", "reply qilingan odamga dok borligi haqida eslatish"),
+    ("help", "ushbu xabarni qayta ko'rsatish"),
+    ("rules", "qoidalarni aks ettirish"),
+    ("about", "ushbu botimizning rivojlantirish qismi"),
+    ("group", "rust ga oid guruh va hamjamiyatlar"),
     ("useful", "rust haqida foydali yoki kerakli ma'lumotlar"),
     ("latest", "eng oxirgi reliz haqida qisqacha ma'lumot"),
     ("version", "biron anniq reliz haqida to'liq ma'lumot"),
     (
         "off",
         "reply qilingan odamga offtop borligi haqida eslatish",
-    ),
-    ("group", "rust ga oid guruh va hamjamiyatlar"),
-    ("help", "ushbu xabarni qayta ko'rsatish"),
-    ("about", "ushbu botimizning rivojlantirish qismi"),
-    ("rules", "qoidalarni aks ettirish"),
-    (
-        "which",
-        "ushbu guruh va foydalanuvchi metrik ma'lumotlarini ko'rsatish",
     ),
 ];
 
