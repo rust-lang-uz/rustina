@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-static RESOURCE: &str = include_str!("../../source.json");
+static RESOURCE: &str = include_str!("../../data/source.json");
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Resource {

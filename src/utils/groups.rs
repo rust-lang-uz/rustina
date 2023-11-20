@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-static GROUPS: &str = include_str!("../../communities.json");
+static GROUPS: &str = include_str!("../../data/communities.json");
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Group {
