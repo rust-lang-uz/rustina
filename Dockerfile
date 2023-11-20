@@ -23,10 +23,15 @@ WORKDIR /app
 RUN --mount=type=bind,source=src,target=src \
     --mount=type=bind,source=Cargo.toml,target=Cargo.toml \
     --mount=type=bind,source=Cargo.lock,target=Cargo.lock \
+    --mount=type=bind,source=source.json,target=source.json \
+    --mount=type=bind,source=communities.json,target=communities.json \
     --mount=type=cache,target=/app/target/ \
     --mount=type=cache,target=/usr/local/cargo/registry/ \
     <<EOF
 set -e
+apt -y update
+apt -y install pkg-config
+apt -y install libssl-dev
 cargo build --locked --release
 cp ./target/release/$APP_NAME /bin/server
 EOF
@@ -55,6 +60,8 @@ RUN adduser \
     --no-create-home \
     --uid "${UID}" \
     appuser
+RUN apt -y update
+RUN apt -y install ca-certificates
 USER appuser
 
 # Copy the executable from the "build" stage.
