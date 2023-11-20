@@ -23,7 +23,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let resources = Resources::new();
 
     // Webhook
-    let addr = ([127, 0, 0, 1], 8443).into();
+    let addr = ([0, 0, 0, 0], 8443).into();
     let url = std::env::var("WEBHOOK_URL").unwrap().parse().unwrap();
     let listener = webhooks::axum(bot.clone(), webhooks::Options::new(addr, url))
         .await
