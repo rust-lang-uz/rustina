@@ -25,7 +25,7 @@ pub enum Command {
     About,
 
     /// Available groups
-    Groups,
+    Group,
 
     /// Latest version
     Latest,

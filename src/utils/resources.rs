@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-static RESOURCE: &'static str = include_str!("../../source.json");
+static RESOURCE: &str = include_str!("../../source.json");
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Resource {
@@ -13,6 +13,12 @@ pub struct Resource {
 #[derive(Clone, Debug)]
 pub struct Resources {
     materials: HashMap<String, Vec<Resource>>,
+}
+
+impl Default for Resources {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Resources {

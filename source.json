@@ -12,8 +12,8 @@
     },
     {
       "name": "Rust Cookbook",
-      "desc": "https://rust-lang-nursery.github.io/rust-cookbook/",
-      "link": "Learn Rust good practices with practical code samples"
+      "desc": "Learn Rust good practices with practical code samples",
+      "link": "https://rust-lang-nursery.github.io/rust-cookbook/"
     },
     {
       "name": "CIS 198",

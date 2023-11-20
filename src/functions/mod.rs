@@ -32,7 +32,7 @@ pub async fn commands(
         Command::Help => crate::functions::help::command(&bot, &msg, &cmd).await,
         Command::Rules => crate::functions::rules::command(&bot, &msg).await,
         Command::About => crate::functions::about::command(&bot, &msg).await,
-        Command::Groups => crate::functions::groups::command(&bot, &msg, &groups).await,
+        Command::Group => crate::functions::groups::command(&bot, &msg, &groups).await,
         Command::Latest => crate::functions::latest::command(&bot, github, &msg).await,
         Command::Version => crate::functions::version::command(&bot, github, &msg).await,
         Command::Off => crate::functions::offtop::command(&bot, &msg, &me).await,
@@ -47,6 +47,7 @@ pub async fn callback(
     q: CallbackQuery,
     github: GitHub,
     groups: Groups,
+    resources: Resources,
 ) -> Result<(), Box<dyn Error + Send + Sync>> {
     let mut args: Vec<&str> = Vec::new();
 
@@ -63,6 +64,14 @@ pub async fn callback(
             "version" => crate::functions::version::callback_list(&bot, &q, &args, github).await,
             "changelog" => {
                 crate::functions::version::callback_detail(&bot, &q, &args, github).await
+            }
+            "useful" => crate::functions::useful::callback_list(&bot, &q, &resources).await,
+            "category" => {
+                crate::functions::useful::callback_category_list(&bot, &q, &args, &resources).await
+            }
+            "material" => {
+                crate::functions::useful::callback_material_detail(&bot, &q, &args, &resources)
+                    .await
             }
             _ => Ok(()),
         };
