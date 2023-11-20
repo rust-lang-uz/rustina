@@ -16,6 +16,8 @@ services:
     ports:
       - 8443:8443
     env_file: .env
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
