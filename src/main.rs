@@ -11,8 +11,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     pretty_env_logger::init();
     log::info!("Starting Rustina Assistant...");
 
-    let bot = Bot::from_env(); 
-    // .set_api_url(std::env::var("TELEGRAM_API").unwrap().parse().unwrap());
+    let bot = Bot::from_env();
 
     let groups = Groups::new();
     let github = GitHub::new();
