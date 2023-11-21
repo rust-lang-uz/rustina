@@ -1,5 +1,5 @@
-use teloxide::{prelude::*, types::*};
 use crate::utils::keyboard::Keyboard;
+use teloxide::{prelude::*, types::*};
 
 static TEXT_FAIL: &str = "Ha-ha... yaxshi urinish!";
 static TEXT_NON_REPLY: &str = "↪ Reply bilan ko'rsatingchi habarni!";

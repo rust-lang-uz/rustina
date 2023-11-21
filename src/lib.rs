@@ -38,6 +38,12 @@ pub enum Command {
 
     /// Useful resources
     Useful,
+
+    /// Roadmap for newbies,
+    Roadmap,
+
+    /// Check for chatid
+    Check,
 }
 
 pub fn handler() -> UpdateHandler<Box<dyn std::error::Error + Send + Sync + 'static>> {

@@ -3,7 +3,7 @@ use crate::utils::{
     keyboard::Keyboard,
 };
 use teloxide::{
-    payloads::{SendMessageSetters, EditMessageTextSetters},
+    payloads::{EditMessageTextSetters, SendMessageSetters},
     prelude::*,
     types::{InlineKeyboardMarkup, ParseMode},
 };

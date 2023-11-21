@@ -1,11 +1,14 @@
 #![allow(clippy::single_match)]
 
 pub mod about;
+pub mod check;
 pub mod groups;
 pub mod help;
 pub mod inline;
+pub mod joined;
 pub mod latest;
 pub mod offtop;
+pub mod roadmap;
 pub mod rules;
 pub mod start;
 pub mod useful;
@@ -37,6 +40,8 @@ pub async fn commands(
         Command::Version => crate::functions::version::command(&bot, github, &msg).await,
         Command::Off => crate::functions::offtop::command(&bot, &msg, &me).await,
         Command::Useful => crate::functions::useful::command(&bot, &msg, &resources).await,
+        Command::Roadmap => crate::functions::roadmap::command(&bot, &msg).await,
+        Command::Check => crate::functions::check::command(&bot, &msg).await,
     };
 
     Ok(())
@@ -84,12 +89,22 @@ pub async fn triggers(bot: Bot, msg: Message) -> Result<(), Box<dyn Error + Send
     if let Some(user) = msg.from() {
         if let Some(username) = user.username.clone() {
             if username == "Channel_Bot" {
-                // try to delete message and ignore error
+                // Try to delete message and ignore error
                 match bot.delete_message(msg.chat.id, msg.id).await {
                     Ok(_) => {}
                     Err(_) => {}
                 }
             }
+        }
+    }
+
+    if let Some(new_chat_members) = msg.new_chat_members() {
+        let bot_id = bot.get_me().send().await?.id;
+
+        if !new_chat_members.iter().any(|user| user.id == bot_id)
+            && (msg.chat.is_supergroup() || msg.chat.is_group())
+        {
+            crate::functions::joined::trigger(&bot, &msg).await?;
         }
     }
 

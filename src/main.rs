@@ -22,14 +22,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
     .unwrap();
     let resources = Resources::new();
 
-    // Webhook
-    let addr = ([0, 0, 0, 0], 8443).into();
-    let url = std::env::var("WEBHOOK_URL").unwrap().parse().unwrap();
-    let listener = webhooks::axum(bot.clone(), webhooks::Options::new(addr, url))
-        .await
-        .expect("Couldn't setup webhook");
-
-    Dispatcher::builder(bot, handler())
+    // Dispatcher flow control
+    let mut dispatcher = Dispatcher::builder(bot.clone(), handler())
         .dependencies(dptree::deps![crates_client, github, groups, resources])
         // If no handler succeeded to handle an update, this closure will be called
         .default_handler(|upd| async move {
@@ -40,14 +34,30 @@ async fn main() -> Result<(), Box<dyn Error>> {
             "An error has occurred in the dispatcher",
         ))
         .enable_ctrlc_handler()
-        .build()
-        // .dispatch()
-        // .await;
-        .dispatch_with_listener(
-            listener,
-            LoggingErrorHandler::with_custom_text("An error has occurred in the dispatcher"),
-        )
-        .await;
+        .build();
+
+    match std::env::var("WEBHOOK_URL") {
+        Ok(v) => {
+            println!("Starting webhook on {}", v);
+            let addr = ([0, 0, 0, 0], 8443).into(); // port 8443
+            let listener = webhooks::axum(bot, webhooks::Options::new(addr, v.parse().unwrap()))
+                .await
+                .expect("Couldn't setup webhook");
+
+            dispatcher
+                .dispatch_with_listener(
+                    listener,
+                    LoggingErrorHandler::with_custom_text(
+                        "An error has occurred in the dispatcher",
+                    ),
+                )
+                .await;
+        }
+        Err(_) => {
+            println!("Starting polling...");
+            dispatcher.dispatch().await;
+        }
+    }
 
     Ok(())
 }
