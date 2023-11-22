@@ -8,6 +8,13 @@ use teloxide::{
 
 static ROADMAP: &str = include_str!("../../data/roadmap.md");
 
+static LINKS: &[(&str, &str)] = &[
+    ("Offitsial Dokumentatsiya", "https://doc.rust-lang.org/book/"),
+    ("O'zbek tilidagi varianti", "https://book.rust-lang.uz"),
+    ("Rust by Example", "https://doc.rust-lang.org/rust-by-example/"),
+    ("Rustling", "https://github.com/rust-lang/rustlings")
+];
+
 pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
     if !msg.chat.is_private() {
         return {
@@ -26,6 +33,11 @@ pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
 
 pub fn keyboard() -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
-    keyboard.url("Jamiyat", "https://t.me/rustlanguz");
-    keyboard.url("Web Sahifa", "https://rust-lang.uz")
+
+    for link in LINKS {
+        keyboard.url(link.0, link.1);
+        keyboard.row();
+    }
+
+    keyboard.get()
 }
