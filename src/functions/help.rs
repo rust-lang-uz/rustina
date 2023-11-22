@@ -7,6 +7,7 @@ static TEXT: &[(&str, &str)] = &[
     ("rules", "qoidalarni aks ettirish"),
     ("about", "ushbu botimizning rivojlantirish qismi"),
     ("group", "rust ga oid guruh va hamjamiyatlar"),
+    ("roadmap", "boshlang'ich o'rganuvchilar uchun"),
     ("useful", "rust haqida foydali yoki kerakli ma'lumotlar"),
     ("latest", "eng oxirgi reliz haqida qisqacha ma'lumot"),
     ("version", "biron anniq reliz haqida to'liq ma'lumot"),
