@@ -1,4 +1,3 @@
-use async_trait::async_trait;
 use teloxide::{
     prelude::*,
     requests::JsonRequest,
@@ -6,7 +5,6 @@ use teloxide::{
     {payloads, payloads::*},
 };
 
-#[async_trait]
 pub trait Rustina {
     type Err: std::error::Error + Send;
     type SendMessageTF: Request<Payload = SendMessage, Err = Self::Err>;
@@ -18,7 +16,6 @@ pub trait Rustina {
         T: Into<String>;
 }
 
-#[async_trait]
 impl Rustina for Bot {
     type Err = teloxide::errors::RequestError;
     type SendMessageTF = JsonRequest<payloads::SendMessage>;

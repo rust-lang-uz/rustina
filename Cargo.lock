@@ -1269,7 +1269,6 @@ dependencies = [
 name = "rustina"
 version = "0.1.0"
 dependencies = [
- "async-trait",
  "crates_io_api",
  "log",
  "octocrab",
