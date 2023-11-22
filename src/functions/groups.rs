@@ -1,6 +1,7 @@
 use crate::utils::{
     groups::{Group, Groups},
     keyboard::Keyboard,
+    message::Rustina,
 };
 use teloxide::{
     payloads::{EditMessageTextSetters, SendMessageSetters},
@@ -11,7 +12,7 @@ use teloxide::{
 static TEXT: &str = "<b>Telegramdagi Rust Hamjamiyatlari yoki Guruhlari:</b>\nAgar o'zingizni guruhingizni qo'shmoqchi bo'lsangiz, bizni <a href='https://github.com/rust-lang-uz/rustina/blob/main/data/communities.json'>community.json</a> ni yangilang!";
 
 pub async fn command(bot: &Bot, msg: &Message, groups: &Groups) -> ResponseResult<()> {
-    bot.send_message(msg.chat.id, TEXT)
+    bot.send_message_tf(msg.chat.id, TEXT, msg)
         .parse_mode(ParseMode::Html)
         .reply_markup(keyboard_list(groups, 1))
         .disable_web_page_preview(true)

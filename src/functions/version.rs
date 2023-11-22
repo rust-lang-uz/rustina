@@ -1,4 +1,4 @@
-use crate::utils::{github::GitHub, keyboard::Keyboard};
+use crate::utils::{github::GitHub, keyboard::Keyboard, message::Rustina};
 use octocrab::models::repos::Release;
 use teloxide::{
     payloads::SendMessageSetters,
@@ -12,7 +12,7 @@ pub async fn command(bot: &Bot, github: GitHub, msg: &Message) -> ResponseResult
     let versions = github.get_list(1).await.unwrap();
     let next_page = github.get_list(2).await.unwrap();
 
-    bot.send_message(msg.chat.id, TEXT)
+    bot.send_message_tf(msg.chat.id, TEXT, msg)
         .parse_mode(ParseMode::Html)
         .reply_markup(keyboard_list(1, versions, Some(next_page)))
         .await?;

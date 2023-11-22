@@ -1,5 +1,6 @@
 use crate::utils::{
     keyboard::Keyboard,
+    message::Rustina,
     resources::{Resource, Resources},
 };
 use teloxide::{
@@ -16,7 +17,7 @@ source.json</a> ni yangilang!";
 pub async fn command(bot: &Bot, msg: &Message, resources: &Resources) -> ResponseResult<()> {
     let categories = resources.get_keys();
 
-    bot.send_message(msg.chat.id, TEXT)
+    bot.send_message_tf(msg.chat.id, TEXT, msg)
         .parse_mode(ParseMode::Html)
         .reply_markup(keyboard_list(categories))
         .disable_web_page_preview(true)

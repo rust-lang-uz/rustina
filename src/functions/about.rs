@@ -1,4 +1,7 @@
-use crate::{hooks, utils::keyboard::Keyboard};
+use crate::{
+    hooks,
+    utils::{keyboard::Keyboard, message::Rustina},
+};
 use teloxide::{
     payloads::SendMessageSetters,
     prelude::*,
@@ -19,7 +22,7 @@ pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
         };
     }
 
-    bot.send_message(msg.chat.id, TEXT)
+    bot.send_message_tf(msg.chat.id, TEXT, msg)
         .parse_mode(ParseMode::Html)
         .reply_markup(keyboard())
         .await?;

@@ -1,4 +1,4 @@
-use crate::utils::keyboard::Keyboard;
+use crate::utils::{keyboard::Keyboard, message::Rustina};
 use teloxide::{prelude::*, types::*};
 
 static TEXT_FAIL: &str = "Ha-ha... yaxshi urinish!";
@@ -7,7 +7,8 @@ static TEXT_NON_REPLY: &str = "↪ Reply bilan ko'rsatingchi habarni!";
 pub async fn command(bot: &Bot, msg: &Message, me: &Me) -> ResponseResult<()> {
     if msg.reply_to_message().is_none() {
         return {
-            bot.send_message(msg.chat.id, TEXT_NON_REPLY).await?;
+            bot.send_message_tf(msg.chat.id, TEXT_NON_REPLY, msg)
+                .await?;
             Ok(())
         };
     }
@@ -16,7 +17,7 @@ pub async fn command(bot: &Bot, msg: &Message, me: &Me) -> ResponseResult<()> {
     if let Some(user) = msg.reply_to_message().as_ref().unwrap().from() {
         if user.username.is_some() && user.username.clone().unwrap() == me.username() {
             return {
-                bot.send_message(msg.chat.id, TEXT_FAIL).await?;
+                bot.send_message_tf(msg.chat.id, TEXT_FAIL, msg).await?;
                 Ok(())
             };
         }
@@ -26,7 +27,7 @@ pub async fn command(bot: &Bot, msg: &Message, me: &Me) -> ResponseResult<()> {
     bot.delete_message(msg.chat.id, msg.reply_to_message().unwrap().id)
         .await?;
 
-    bot.send_message(msg.chat.id, view(msg.reply_to_message().unwrap()))
+    bot.send_message_tf(msg.chat.id, view(msg.reply_to_message().unwrap()), msg)
         .parse_mode(ParseMode::Html)
         .reply_markup(keyboard())
         .await?;

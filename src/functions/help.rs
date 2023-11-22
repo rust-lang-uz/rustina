@@ -1,5 +1,5 @@
 use super::start::keyboard;
-use crate::Command;
+use crate::{utils::message::Rustina, Command};
 use teloxide::{payloads::SendMessageSetters, prelude::*, types::ParseMode};
 
 static TEXT: &[(&str, &str)] = &[
@@ -30,7 +30,7 @@ pub async fn command(bot: &Bot, msg: &Message, _cmd: &Command) -> ResponseResult
         text.push('\n');
     }
 
-    bot.send_message(msg.chat.id, text)
+    bot.send_message_tf(msg.chat.id, text, msg)
         .parse_mode(ParseMode::Html)
         .reply_markup(keyboard())
         .await?;

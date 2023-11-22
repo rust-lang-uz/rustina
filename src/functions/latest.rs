@@ -1,4 +1,4 @@
-use crate::utils::{github::GitHub, keyboard::Keyboard};
+use crate::utils::{github::GitHub, keyboard::Keyboard, message::Rustina};
 use octocrab::models::repos::Release;
 use teloxide::{
     payloads::SendMessageSetters,
@@ -9,7 +9,7 @@ use teloxide::{
 pub async fn command(bot: &Bot, github: GitHub, msg: &Message) -> ResponseResult<()> {
     let latest = github.get_latest().await.unwrap();
 
-    bot.send_message(msg.chat.id, view(&latest))
+    bot.send_message_tf(msg.chat.id, view(&latest), msg)
         .parse_mode(ParseMode::Html)
         .reply_markup(keyboard(&latest))
         .await?;
