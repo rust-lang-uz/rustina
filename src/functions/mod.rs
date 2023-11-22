@@ -1,5 +1,3 @@
-#![allow(clippy::single_match)]
-
 pub mod about;
 pub mod check;
 pub mod groups;

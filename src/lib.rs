@@ -1,3 +1,5 @@
+#![allow(clippy::single_match)]
+
 pub mod functions;
 pub mod hooks;
 pub mod utils;
