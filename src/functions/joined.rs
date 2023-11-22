@@ -12,14 +12,23 @@ pub async fn trigger(bot: &Bot, msg: &Message) -> ResponseResult<()> {
         .send_message(msg.chat.id, TEXT)
         .parse_mode(ParseMode::Html);
 
-    if msg.thread_id.is_some() {
+    let message: Message = if msg.thread_id.is_some() {
         message
             .message_thread_id(msg.thread_id.unwrap())
             .send()
-            .await?;
+            .await?
     } else {
-        message.send().await?;
-    }
+        message.send().await?
+    };
+
+    let thread_bot = bot.clone();
+    tokio::spawn(async move {
+        tokio::time::sleep(tokio::time::Duration::from_secs(60 * 5)).await;
+        match thread_bot.delete_message(message.chat.id, message.id).await {
+            Ok(_) => {}
+            Err(_) => {}
+        };
+    });
 
     Ok(())
 }
