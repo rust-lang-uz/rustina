@@ -15,11 +15,8 @@ Bizning botimiz aktiv tarzda shakllantirib boriladi. Buning ustida esa bir necha
 "#;
 
 pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
-    if !msg.chat.is_private() {
-        return {
-            hooks::is_private(bot, msg).await.unwrap();
-            Ok(())
-        };
+    if !hooks::is_private(bot, msg).await.unwrap() {
+        return Ok(());
     }
 
     bot.send_message_tf(msg.chat.id, TEXT, msg)

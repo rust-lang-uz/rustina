@@ -22,11 +22,8 @@ static LINKS: &[(&str, &str)] = &[
 ];
 
 pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
-    if !msg.chat.is_private() {
-        return {
-            hooks::is_private(bot, msg).await.unwrap();
-            Ok(())
-        };
+    if !hooks::is_private(bot, msg).await.unwrap() {
+        return Ok(());
     }
 
     bot.send_message(msg.chat.id, ROADMAP)

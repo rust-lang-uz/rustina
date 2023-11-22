@@ -16,7 +16,11 @@ pub fn keyboard() -> InlineKeyboardMarkup {
     keyboard.url("Shaxsiy Chat", "https://t.me/rustinabot")
 }
 
-pub async fn is_private(bot: &Bot, msg: &Message) -> ResponseResult<()> {
+pub async fn is_private(bot: &Bot, msg: &Message) -> ResponseResult<bool> {
+    if msg.chat.is_private() {
+        return Ok(true);
+    }
+
     match bot.delete_message(msg.chat.id, msg.id).await {
         Ok(_) => {}
         Err(_) => {}
@@ -30,5 +34,5 @@ pub async fn is_private(bot: &Bot, msg: &Message) -> ResponseResult<()> {
 
     delete_timer(bot, &message, 10).await?;
 
-    Ok(())
+    Ok(false)
 }
