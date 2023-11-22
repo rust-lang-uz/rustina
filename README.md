@@ -1,5 +1,5 @@
 <header>
-<img src="./assets/logo.png" alt="logo" height="100" align="left">
+<img src=".github/assets/logo.png" alt="logo" height="100" align="left">
 <h1 style="display: inline">Rustina Telegram</h1>
 
 Telegram Bot Assistant written on Teloxide/Rust
