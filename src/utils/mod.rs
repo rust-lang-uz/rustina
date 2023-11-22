@@ -6,11 +6,10 @@ pub mod message;
 pub mod resources;
 
 pub fn cargo_like_log(title: &str, message: &str) {
-    println!("{}{}{}{} {} {}", 
+    println!(
+        "{}\x1b[1;32m{}\x1b[0m {} {}",
         " ".repeat(12 - title.len()),
-        "\x1b[1;32m",
         title,
-        "\x1b[0m",
         message,
         " ".repeat(8)
     );

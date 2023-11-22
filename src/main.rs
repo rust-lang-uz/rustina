@@ -1,7 +1,7 @@
 use crates_io_api::AsyncClient;
 use rustina::{
     handler,
-    utils::{github::GitHub, groups::Groups, resources::Resources, cargo_like_log},
+    utils::{cargo_like_log, github::GitHub, groups::Groups, resources::Resources},
 };
 use std::error::Error;
 use teloxide::{prelude::*, update_listeners::webhooks};
@@ -38,7 +38,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     match std::env::var("WEBHOOK_URL") {
         Ok(v) => {
-            cargo_like_log("Mode", &format!("Starting webhook on {}", v));
+            cargo_like_log("Mode", &format!("starting webhook on {}", v));
             let addr = ([0, 0, 0, 0], 8443).into(); // port 8443
             let listener = webhooks::axum(bot, webhooks::Options::new(addr, v.parse().unwrap()))
                 .await
@@ -54,7 +54,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 .await;
         }
         Err(_) => {
-            cargo_like_log("Mode", "Starting polling on localhost");
+            cargo_like_log("Mode", "starting polling on localhost");
             dispatcher.dispatch().await;
         }
     }
