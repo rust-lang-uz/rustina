@@ -14,7 +14,7 @@ pub async fn command(bot: &Bot, msg: &Message, me: &Me) -> ResponseResult<()> {
 
     // if replied person is bot itself, send fail message
     if let Some(user) = msg.reply_to_message().as_ref().unwrap().from() {
-        if user.username.clone().unwrap() == me.username() {
+        if user.username.is_some() && user.username.clone().unwrap() == me.username() {
             return {
                 bot.send_message(msg.chat.id, TEXT_FAIL).await?;
                 Ok(())

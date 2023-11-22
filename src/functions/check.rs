@@ -1,10 +1,9 @@
+use crate::utils::message::Rustina;
 use teloxide::{payloads::SendMessageSetters, prelude::*, types::ParseMode};
 
 pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
-    println!("Command triggered: {:?}", msg);
-    bot.send_message(msg.chat.id, view(msg))
+    bot.send_message_tf(msg.chat.id, view(msg), msg)
         .parse_mode(ParseMode::Html)
-        // .reply_markup(keyboard())
         .await?;
 
     Ok(())
