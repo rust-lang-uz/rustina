@@ -1,18 +1,4 @@
 {
   "asosiy": 1,
-  "showoff": 9420,
-  "offtopic": 9400,
-  "compiler-development": 11122,
-  "bots": 11090,
-  "rustlings": 9322,
-  "type-theory": 9318,
-  "embedded": 9312,
-  "data-science": 9321,
-  "game-dev": 9323,
-  "web-dev": 9314,
-  "software-dev": 9316,
-  "telegram-bots": 9315,
-  "tauri": 9917,
-  "machine-learning": 9320,
-  "deno": 9455
+  "offtopic": 9400
 }
