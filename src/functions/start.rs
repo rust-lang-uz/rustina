@@ -1,4 +1,4 @@
-use crate::utils::{keyboard::Keyboard, message::Rustina};
+use orzklv::telegram::{keyboard::Keyboard, topic::Topics};
 use teloxide::{
     payloads::SendMessageSetters,
     prelude::*,
@@ -22,6 +22,6 @@ pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
 
 pub fn keyboard() -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
-    keyboard.url("Jamiyat", "https://t.me/rustlanguz");
-    keyboard.url("Web Sahifa", "https://rust-lang.uz")
+    keyboard.url("Jamiyat", "https://t.me/rustlanguz").unwrap();
+    keyboard.url("Web Sahifa", "https://rust-lang.uz").unwrap()
 }

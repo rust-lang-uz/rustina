@@ -1,4 +1,5 @@
-use crate::{hooks, utils::keyboard::Keyboard};
+use crate::hooks;
+use orzklv::telegram::keyboard::Keyboard;
 use teloxide::{
     payloads::SendMessageSetters,
     prelude::*,
@@ -34,5 +35,7 @@ pub async fn command(bot: &Bot, msg: &Message) -> ResponseResult<()> {
 
 pub fn keyboard() -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
-    keyboard.url("Guruhga qaytish", "https://t.me/rustlanguz")
+    keyboard
+        .url("Guruhga qaytish", "https://t.me/rustlanguz")
+        .unwrap()
 }

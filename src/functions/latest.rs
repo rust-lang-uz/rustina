@@ -1,7 +1,7 @@
-use crate::utils::{github::GitHub, keyboard::Keyboard, message::Rustina};
+use crate::utils::github::GitHub;
 use octocrab::models::repos::Release;
+use orzklv::telegram::{keyboard::Keyboard, topic::Topics};
 use teloxide::{
-    payloads::SendMessageSetters,
     prelude::*,
     types::{InlineKeyboardMarkup, ParseMode},
 };
@@ -34,5 +34,7 @@ pub fn view(release: &Release) -> String {
 
 pub fn keyboard(release: &Release) -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
-    keyboard.url("Ko'proq ma'lumotlar", release.html_url.as_str())
+    keyboard
+        .url("Ko'proq ma'lumotlar", release.html_url.as_str())
+        .unwrap()
 }

@@ -1,5 +1,6 @@
-use crate::utils::{github::GitHub, keyboard::Keyboard, message::Rustina};
+use crate::utils::github::GitHub;
 use octocrab::models::repos::Release;
+use orzklv::telegram::{keyboard::Keyboard, topic::Topics};
 use teloxide::{
     payloads::SendMessageSetters,
     prelude::*,
@@ -31,8 +32,13 @@ pub async fn callback_list(
     let next_page = github.get_list(page + 1).await.unwrap();
 
     if !args.is_empty() {
-        if let Some(Message { id, chat, .. }) = q.message.clone() {
-            bot.edit_message_text(chat.id, id, TEXT)
+        let om = match q.message.clone() {
+            Some(m) => m,
+            None => return Ok(()),
+        };
+
+        if let Some(Message { id, chat, .. }) = om.regular_message() {
+            bot.edit_message_text(chat.id, *id, TEXT)
                 .parse_mode(ParseMode::Html)
                 .reply_markup(keyboard_list(page, versions, Some(next_page)))
                 .await?;
@@ -54,9 +60,14 @@ pub async fn callback_detail(
     let page = args[0].parse::<u32>().unwrap();
     let version: Release = github.get_detail(args[1]).await.unwrap();
 
+    let om = match q.message.clone() {
+        Some(m) => m,
+        None => return Ok(()),
+    };
+
     if !args.is_empty() {
-        if let Some(Message { id, chat, .. }) = q.message.clone() {
-            bot.edit_message_text(chat.id, id, view_detail(&version))
+        if let Some(Message { id, chat, .. }) = om.regular_message() {
+            bot.edit_message_text(chat.id, *id, view_detail(&version))
                 .parse_mode(ParseMode::Html)
                 .reply_markup(keyboard_detail(page, version))
                 .await?;
@@ -113,7 +124,9 @@ pub fn keyboard_list(
 pub fn keyboard_detail(page: u32, release: Release) -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
 
-    keyboard.url("📝 GitHub da o'qish", release.html_url.as_str());
+    keyboard
+        .url("📝 GitHub da o'qish", release.html_url.as_str())
+        .unwrap();
     keyboard.row();
     keyboard.text("🔙 Orqaga", &format!("version_{}", page));
 

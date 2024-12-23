@@ -1,5 +1,5 @@
-use super::keyboard::Keyboard;
 use crates_io_api::Crate;
+use orzklv::telegram::keyboard::Keyboard;
 use teloxide::types::*;
 
 pub static NO_INPUT: &str = r#"
@@ -7,7 +7,7 @@ pub static NO_INPUT: &str = r#"
 
 Siz inline rejim ishga tushurdingiz. Ushbu qulaylik yordamida siz crates.io Rust dasturlash tili paketlar registridan web sahifani ishlatmasdan turib telegram o'zida kerakli paketlarni qidirishingiz mumkin! Ushbu qulaylik yozish uchun o'zimizning <a href="https://github.com/rust-lang-uz/crates.ts">API SDK</a> ishlatildi.
 
-Qidirishni boshlash uchun: 
+Qidirishni boshlash uchun:
 <code>@rustaceanbot &lt;nomi&gt;</code>
 "#;
 
@@ -62,23 +62,31 @@ pub fn view_generate(c: &Crate) -> String {
 pub fn kb_generate(c: &Crate) -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
 
-    keyboard.url(
-        "Crate",
-        format!("https://crates.io/crates/{}", c.name).as_str(),
-    );
+    keyboard
+        .url(
+            "Crate",
+            format!("https://crates.io/crates/{}", c.name).as_str(),
+        )
+        .unwrap();
 
     if c.homepage.is_some() {
-        keyboard.url("Asosiy", &c.homepage.clone().unwrap());
+        keyboard
+            .url("Asosiy", &c.homepage.clone().unwrap())
+            .unwrap();
         keyboard.row();
     }
 
     if c.documentation.is_some() {
-        keyboard.url("Dokumentatsiya", &c.documentation.clone().unwrap());
+        keyboard
+            .url("Dokumentatsiya", &c.documentation.clone().unwrap())
+            .unwrap();
         keyboard.row();
     }
 
     if c.repository.is_some() {
-        keyboard.url("Repozitoriya", &c.repository.clone().unwrap());
+        keyboard
+            .url("Repozitoriya", &c.repository.clone().unwrap())
+            .unwrap();
         keyboard.row();
     }
 

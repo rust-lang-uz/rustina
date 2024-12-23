@@ -1,9 +1,8 @@
 pub mod github;
 pub mod groups;
 pub mod inlines;
-pub mod keyboard;
-pub mod message;
 pub mod resources;
+pub mod topics;
 
 pub fn clog(title: &str, message: &str) {
     let title = if title.len() > 12 {

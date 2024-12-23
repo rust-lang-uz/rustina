@@ -4,16 +4,15 @@ use teloxide::{
     types::{InlineKeyboardMarkup, ParseMode},
 };
 
-use crate::utils::{
-    keyboard::Keyboard,
-    message::{delete_timer, Rustina},
-};
+use orzklv::telegram::{keyboard::Keyboard, timer::Timer, topic::Topics};
 
 static TEXT: &str = "⚠️ <b>Bu komanda faqat shaxsiy chat uchun!</b>";
 
 pub fn keyboard() -> InlineKeyboardMarkup {
     let mut keyboard: Keyboard = Keyboard::new();
-    keyboard.url("Shaxsiy Chat", "https://t.me/rustinabot")
+    keyboard
+        .url("Shaxsiy Chat", "https://t.me/rustinabot")
+        .unwrap()
 }
 
 pub async fn is_private(bot: &Bot, msg: &Message) -> ResponseResult<bool> {
@@ -32,7 +31,9 @@ pub async fn is_private(bot: &Bot, msg: &Message) -> ResponseResult<bool> {
         .reply_markup(keyboard())
         .await?;
 
-    delete_timer(bot, &message, 10).await?;
+    bot.delete_timer(message.chat.id, message.id, 10)
+        .await
+        .await?;
 
     Ok(false)
 }

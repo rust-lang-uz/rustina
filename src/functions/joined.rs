@@ -1,6 +1,5 @@
+use orzklv::telegram::{timer::Timer, topic::Topics};
 use teloxide::{prelude::*, types::*};
-
-use crate::utils::message::{delete_timer, Rustina};
 
 static TEXT: &str = "<b>Salom bo'lajak Rustacean!</b>\n\n\
 Sizlarni bu guruhda ko'rib turganimizdan mamnunmiz. Bu guruh Rust dasturlash tiliga qaratilgan hisoblanib, \
@@ -15,7 +14,9 @@ pub async fn trigger(bot: &Bot, msg: &Message) -> ResponseResult<()> {
         .parse_mode(ParseMode::Html)
         .await?;
 
-    delete_timer(bot, &message, 60 * 5).await?;
+    bot.delete_timer(message.chat.id, message.id, 60 * 5)
+        .await
+        .await?;
 
     Ok(())
 }

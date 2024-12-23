@@ -31,7 +31,7 @@ pub enum Command {
     Version,
 
     /// Report offtopic
-    Off,
+    Warn,
 
     /// Useful resources
     Useful,

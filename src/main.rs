@@ -1,6 +1,6 @@
 use bot::bot::dispatch;
 use bot::config::{Config, Field};
-use bot::utils::{clog, github::GitHub};
+use bot::utils::{clog, github::GitHub, topics::Topics};
 use bot::utils::{groups::Groups, resources::Resources};
 use bot::{Cli, Commands};
 use clap::Parser;
@@ -16,6 +16,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     // Global instances
     let groups = Groups::new();
+    let topics = Topics::new();
     let resources = Resources::new();
     let mut config = Config::default();
     let crates_client = AsyncClient::new(
@@ -43,7 +44,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
             let github = GitHub::new(Some(config.github));
 
             // Dependencies
-            let deps = dptree::deps![crates_client, github, groups, resources];
+            let deps = dptree::deps![crates_client, github, groups, resources, topics];
 
             let mut dispatcher = dispatch(&bot, deps);
 
@@ -77,7 +78,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
             let github = GitHub::new(Some(config.github));
 
             // Dependencies
-            let deps = dptree::deps![crates_client, github, groups, resources];
+            let deps = dptree::deps![crates_client, github, groups, resources, topics];
 
             let mut dispatcher = dispatch(&bot, deps);
 
@@ -105,7 +106,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
             let github = GitHub::new(std::env::var("GITHUB_TOKEN").ok());
 
             // Dependencies
-            let deps = dptree::deps![crates_client, github, groups, resources];
+            let deps = dptree::deps![crates_client, github, groups, resources, topics];
 
             let mut dispatcher = dispatch(&bot, deps);
 

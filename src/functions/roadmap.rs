@@ -1,5 +1,5 @@
 use crate::hooks;
-use crate::utils::keyboard::Keyboard;
+use orzklv::telegram::keyboard::Keyboard;
 use teloxide::{
     payloads::SendMessageSetters,
     prelude::*,
@@ -38,7 +38,7 @@ pub fn keyboard() -> InlineKeyboardMarkup {
     let mut keyboard = Keyboard::new();
 
     for link in LINKS {
-        keyboard.url(link.0, link.1);
+        keyboard.url(link.0, link.1).unwrap();
         keyboard.row();
     }
 

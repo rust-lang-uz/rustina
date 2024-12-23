@@ -1,11 +1,38 @@
-{
-  "asosiy": 1,
-  "learning": 26210,
-  "offtopic": 9400,
-  "yordam": 146749,
-  "explore": 26603,
-  "showroom": 26382,
-  "livestreams": 22577,
-  "jobs": 27940,
-  "l10n": 22990
-}
+[
+  {
+    "name": "asosiy",
+    "id": 1
+  },
+  {
+    "name": "learning",
+    "id": 26210
+  },
+  {
+    "name": "yordam",
+    "id": 146749
+  },
+  {
+    "name": "explore",
+    "id": 26603
+  },
+  {
+    "name": "showroom",
+    "id": 26382
+  },
+  {
+    "name": "livestreams",
+    "id": 22577
+  },
+  {
+    "name": "jobs",
+    "id": 27940
+  },
+  {
+    "name": "l10n",
+    "id": 22990
+  },
+  {
+    "name": "offtopic",
+    "id": 0
+  }
+]

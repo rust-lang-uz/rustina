@@ -1,3 +1,5 @@
+#![allow(clippy::too_many_arguments)]
+
 pub mod about;
 pub mod check;
 pub mod groups;
@@ -5,17 +7,17 @@ pub mod help;
 pub mod inline;
 pub mod joined;
 pub mod latest;
-pub mod offtop;
 pub mod roadmap;
 pub mod rules;
 pub mod start;
 pub mod useful;
 pub mod version;
+pub mod warn;
 
 pub use inline::inline;
 
 use crate::bot::Command;
-use crate::utils::{github::GitHub, groups::Groups, resources::Resources};
+use crate::utils::{github::GitHub, groups::Groups, resources::Resources, topics::Topics};
 use std::error::Error;
 use teloxide::{prelude::*, types::*};
 
@@ -26,6 +28,7 @@ pub async fn commands(
     cmd: Command,
     github: GitHub,
     groups: Groups,
+    topics: Topics,
     resources: Resources,
 ) -> Result<(), Box<dyn Error + Send + Sync>> {
     let _ = match cmd {
@@ -36,7 +39,7 @@ pub async fn commands(
         Command::Group => crate::functions::groups::command(&bot, &msg, &groups).await,
         Command::Latest => crate::functions::latest::command(&bot, github, &msg).await,
         Command::Version => crate::functions::version::command(&bot, github, &msg).await,
-        Command::Off => crate::functions::offtop::command(&bot, &msg, &me).await,
+        Command::Warn => crate::functions::warn::command(&bot, &msg, &me, &topics).await,
         Command::Useful => crate::functions::useful::command(&bot, &msg, &resources).await,
         Command::Roadmap => crate::functions::roadmap::command(&bot, &msg).await,
         Command::Check => crate::functions::check::command(&bot, &msg).await,
@@ -50,6 +53,7 @@ pub async fn callback(
     q: CallbackQuery,
     github: GitHub,
     groups: Groups,
+    topics: Topics,
     resources: Resources,
 ) -> Result<(), Box<dyn Error + Send + Sync>> {
     let mut args: Vec<&str> = Vec::new();
@@ -76,6 +80,7 @@ pub async fn callback(
                 crate::functions::useful::callback_material_detail(&bot, &q, &args, &resources)
                     .await
             }
+            "warn" => warn::callback(&bot, &q, &args, &topics).await,
             _ => Ok(()),
         };
     }
@@ -84,7 +89,7 @@ pub async fn callback(
 }
 
 pub async fn triggers(bot: Bot, msg: Message) -> Result<(), Box<dyn Error + Send + Sync>> {
-    if let Some(user) = msg.from() {
+    if let Some(ref user) = msg.from {
         if let Some(username) = user.username.clone() {
             if username == "Channel_Bot" {
                 // Try to delete message and ignore error

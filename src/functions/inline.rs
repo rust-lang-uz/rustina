@@ -19,7 +19,13 @@ pub async fn inline(
                     InputMessageContent::Text(
                         InputMessageContentText::new(NO_INPUT)
                             .parse_mode(ParseMode::Html)
-                            .disable_web_page_preview(true),
+                            .link_preview_options(LinkPreviewOptions {
+                                is_disabled: true,
+                                url: None,
+                                prefer_small_media: false,
+                                prefer_large_media: false,
+                                show_above_text: false,
+                            }),
                     ),
                 )
                 .reply_markup(err_keyboard())
@@ -47,11 +53,17 @@ pub async fn inline(
                     "Xatolik yuz berdi!",
                     InputMessageContent::Text(
                         InputMessageContentText::new(
-                            format!("<b>{} ga oid natija mavjud emas!</b>\nIltimos, boshqattan ushbu qidirmoqchi bo'lgan paketingiz yozib qidirib ko'ring!", 
+                            format!("<b>{} ga oid natija mavjud emas!</b>\nIltimos, boshqattan ushbu qidirmoqchi bo'lgan paketingiz yozib qidirib ko'ring!",
                             q.query.clone())
                         )
                             .parse_mode(ParseMode::Html)
-                            .disable_web_page_preview(true),
+                            .link_preview_options(LinkPreviewOptions {
+                                is_disabled: true,
+                                url: None,
+                                prefer_small_media: false,
+                                prefer_large_media: false,
+                                show_above_text: false,
+                            }),
                     ),
                 )
                     .reply_markup(err_keyboard())
@@ -72,7 +84,13 @@ pub async fn inline(
                     InputMessageContent::Text(
                         InputMessageContentText::new(view_generate(c))
                             .parse_mode(ParseMode::Html)
-                            .disable_web_page_preview(true),
+                            .link_preview_options(LinkPreviewOptions {
+                                is_disabled: true,
+                                url: None,
+                                prefer_small_media: false,
+                                prefer_large_media: false,
+                                show_above_text: false,
+                            }),
                     ),
                 )
                 .description(c.description.clone().unwrap())
