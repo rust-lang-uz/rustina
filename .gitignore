@@ -1,3 +1,7 @@
+# Nix
+result
+
+# Local envs
 .env
 
 # Added by cargo
