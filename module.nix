@@ -6,7 +6,7 @@ flake: {
   pkgs,
   ...
 }: let
-  cfg = config.services.rustina.bot;
+  cfg = config.services.rustina;
   bot = flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
   genArgs = {cfg}: let
@@ -115,8 +115,8 @@ flake: {
       };
 
       # preStart = ''
-      #   installedConfigFile="${config.services.rustina.bot.dataDir}/Config/options.json"
-      #   install -d -m750 ${config.services.rustina.bot.dataDir}/Config
+      #   installedConfigFile="${config.services.rustina.dataDir}/Config/options.json"
+      #   install -d -m750 ${config.services.rustina.dataDir}/Config
       #   rm -f "$installedConfigFile" && install -m640 ${configFile} "$installedConfigFile"
       # '';
     };
@@ -124,23 +124,23 @@ flake: {
 
   asserts = lib.mkIf cfg.enable {
     warnings = [
-      (lib.mkIf (cfg.webhook.enable && cfg.webhook.domain == null) "services.rustina.bot.webhook.domain must be set in order to properly generate certificate!")
+      (lib.mkIf (cfg.webhook.enable && cfg.webhook.domain == null) "services.rustina.webhook.domain must be set in order to properly generate certificate!")
     ];
 
     assertions = [
       {
         assertion = cfg.tokens.telegram != null;
-        message = "services.rustina.bot.tokens.telegram must be set!";
+        message = "services.rustina.tokens.telegram must be set!";
       }
       {
         assertion = cfg.tokens.github != null;
-        message = "services.rustina.bot.tokens.github must be set!";
+        message = "services.rustina.tokens.github must be set!";
       }
     ];
   };
 in {
   options = with lib; {
-    services.rustina.bot = {
+    services.rustina = {
       enable = mkEnableOption ''
         Rustina Bot: Telegram bot made by Uzbek Rust team for Rust Uzbekistan community.
       '';

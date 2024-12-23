@@ -35,6 +35,6 @@
     )
     // {
       # Overlay module
-      nixosModules.rustina.bot = import ./module.nix self;
+      nixosModules.rustina = import ./module.nix self;
     };
 }
