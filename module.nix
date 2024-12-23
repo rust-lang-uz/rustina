@@ -10,7 +10,8 @@ flake: {
   bot = flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
   genArgs = {cfg}: let
-    token = cfg.token;
+    telegram = cfg.tokens.telegram;
+    github = cfg.tokens.github;
     domain = cfg.webhook.domain or "";
     mode =
       if cfg.webhook.enable
@@ -21,7 +22,7 @@ flake: {
       then "--port ${toString cfg.webhook.port}"
       else "";
   in
-    lib.strings.concatStringsSep " " [mode token domain port];
+    lib.strings.concatStringsSep " " [mode telegram github domain port];
 
   caddy = lib.mkIf (cfg.enable && cfg.webhook.enable && cfg.webhook.proxy == "caddy") {
     services.caddy.virtualHosts = lib.debug.traceIf (builtins.isNull cfg.webhook.domain) "webhook.domain can't be null, please specicy it properly!" {
@@ -128,8 +129,12 @@ flake: {
 
     assertions = [
       {
-        assertion = cfg.token != null;
-        message = "services.rustina.bot.token must be set!";
+        assertion = cfg.tokens.telegram != null;
+        message = "services.rustina.bot.tokens.telegram must be set!";
+      }
+      {
+        assertion = cfg.tokens.github != null;
+        message = "services.rustina.bot.tokens.github must be set!";
       }
     ];
   };
@@ -169,12 +174,22 @@ in {
         };
       };
 
-      token = mkOption {
-        type = with types; nullOr path;
-        default = null;
-        description = lib.mdDoc ''
-          Path to telegram bot token of Rustina manager.
-        '';
+      tokens = {
+        telegram = mkOption {
+          type = with types; nullOr path;
+          default = null;
+          description = lib.mdDoc ''
+            Path to telegram bot token of Rustina manager.
+          '';
+        };
+
+        github = mkOption {
+          type = with types; nullOr path;
+          default = null;
+          description = lib.mdDoc ''
+            Path to github token for Rustina manager.
+          '';
+        };
       };
 
       user = mkOption {
