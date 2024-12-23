@@ -58,7 +58,7 @@ in
 
       # Start watching for changes
       # Start watching for changes in the background
-      # cargo watch -x "run --bin xinuxmgr" &
+      # cargo watch -x "run --bin bot" &
 
       # Store the PID of the background process
       # CARGO_WATCH_PID=$!
