@@ -6,26 +6,25 @@ pub struct GitHub {
     client: Octocrab,
 }
 
-impl Default for GitHub {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
 impl GitHub {
-    pub fn new() -> Self {
-        Self {
-            client: Octocrab::builder()
-                .add_header(
-                    "User-Agent".parse().unwrap(),
-                    "Rustina Assistant (rust@maid.uz)".to_string(),
-                )
-                .add_header(
-                    "Authorization".parse().unwrap(),
-                    std::env::var("GITHUB_TOKEN").unwrap(),
-                )
-                .build()
-                .unwrap(),
+    pub fn new(token: Option<String>) -> Self {
+        let client = Octocrab::builder();
+
+        let client = client.add_header(
+            "User-Agent".parse().unwrap(),
+            "Rustina Assistant (rust@maid.uz)".to_string(),
+        );
+
+        match token {
+            Some(t) => Self {
+                client: client
+                    .add_header("Authorization".parse().unwrap(), t)
+                    .build()
+                    .unwrap(),
+            },
+            None => Self {
+                client: client.build().unwrap(),
+            },
         }
     }
 

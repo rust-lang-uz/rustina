@@ -1,48 +1,93 @@
+use bot::bot::dispatch;
+use bot::config::{Config, Field};
+use bot::utils::{clog, github::GitHub};
+use bot::utils::{groups::Groups, resources::Resources};
+use bot::{Cli, Commands};
+use clap::Parser;
 use crates_io_api::AsyncClient;
-use rustina::{
-    handler,
-    utils::{cargo_like_log, github::GitHub, groups::Groups, resources::Resources},
-};
 use std::error::Error;
 use teloxide::{prelude::*, update_listeners::webhooks};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
+    // Starter packs
     pretty_env_logger::init();
     log::info!("Starting Rustina Assistant...");
 
-    let bot = Bot::from_env();
-
+    // Global instances
     let groups = Groups::new();
-    let github = GitHub::new();
+    let resources = Resources::new();
+    let mut config = Config::default();
     let crates_client = AsyncClient::new(
         "Rustina Assistant (rust@maid.uz)",
         std::time::Duration::from_millis(100),
     )
     .unwrap();
-    let resources = Resources::new();
 
-    // Dispatcher flow control
-    let mut dispatcher = Dispatcher::builder(bot.clone(), handler())
-        .dependencies(dptree::deps![crates_client, github, groups, resources])
-        // If no handler succeeded to handle an update, this closure will be called
-        .default_handler(|upd| async move {
-            log::warn!("Unhandled update: {:?}", upd);
-        })
-        // If the dispatcher fails for some reason, execute this handler
-        .error_handler(LoggingErrorHandler::with_custom_text(
-            "An error has occurred in the dispatcher",
-        ))
-        .enable_ctrlc_handler()
-        .build();
+    // Args
+    let args = Cli::parse();
 
-    match std::env::var("WEBHOOK_URL") {
-        Ok(v) => {
-            cargo_like_log("Mode", &format!("starting webhook on {}", v));
-            let addr = ([0, 0, 0, 0], 8443).into(); // port 8443
-            let listener = webhooks::axum(bot, webhooks::Options::new(addr, v.parse().unwrap()))
-                .await
-                .expect("Couldn't setup webhook");
+    match args.command {
+        Commands::Polling { token, github } => {
+            match config.read(token, Field::Token) {
+                Ok(_) => clog("Config", "Successfully read the token variable"),
+                Err(e) => panic!("{}", e),
+            };
+
+            match config.read(github, Field::GitHub) {
+                Ok(_) => clog("Config", "Successfully read the github token variable"),
+                Err(e) => panic!("{}", e),
+            };
+
+            let bot = Bot::new(config.token);
+            let github = GitHub::new(Some(config.github));
+
+            // Dependencies
+            let deps = dptree::deps![crates_client, github, groups, resources];
+
+            let mut dispatcher = dispatch(&bot, deps);
+
+            clog("Mode", "starting polling on localhost");
+            dispatcher.dispatch().await;
+
+            Ok(())
+        }
+        Commands::Webhook {
+            token,
+            github,
+            domain,
+            port,
+        } => {
+            match config.read(token, Field::Token) {
+                Ok(_) => clog("Config", "Successfully read the token variable"),
+                Err(e) => panic!("{}", e),
+            };
+
+            match config.read(github, Field::GitHub) {
+                Ok(_) => clog("Config", "Successfully read the github token variable"),
+                Err(e) => panic!("{}", e),
+            };
+
+            match config.set(format!("https://{}", domain), Field::Domain) {
+                Ok(_) => clog("Config", "Successfully set the domain variable"),
+                Err(e) => panic!("{}", e),
+            }
+
+            let bot = Bot::new(config.token);
+            let github = GitHub::new(Some(config.github));
+
+            // Dependencies
+            let deps = dptree::deps![crates_client, github, groups, resources];
+
+            let mut dispatcher = dispatch(&bot, deps);
+
+            let addr = ([127, 0, 0, 1], port.unwrap_or(8445)).into(); // port 8445
+            let listener = webhooks::axum(
+                bot,
+                webhooks::Options::new(addr, config.domain.parse().unwrap()),
+            )
+            .await
+            .expect("Couldn't setup webhook");
 
             dispatcher
                 .dispatch_with_listener(
@@ -52,12 +97,50 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     ),
                 )
                 .await;
+
+            Ok(())
         }
-        Err(_) => {
-            cargo_like_log("Mode", "starting polling on localhost");
-            dispatcher.dispatch().await;
+        Commands::Env => {
+            let bot = Bot::from_env();
+            let github = GitHub::new(std::env::var("GITHUB_TOKEN").ok());
+
+            // Dependencies
+            let deps = dptree::deps![crates_client, github, groups, resources];
+
+            let mut dispatcher = dispatch(&bot, deps);
+
+            match std::env::var("WEBHOOK_URL") {
+                Ok(v) => {
+                    clog("Mode", &format!("starting webhook on {}", v));
+
+                    let port: u16 = std::env::var("PORT")
+                        .unwrap_or("8445".to_string())
+                        .parse()
+                        .unwrap_or(8445);
+
+                    let addr = ([0, 0, 0, 0], port).into();
+
+                    let listener =
+                        webhooks::axum(bot, webhooks::Options::new(addr, v.parse().unwrap()))
+                            .await
+                            .expect("Couldn't setup webhook");
+
+                    dispatcher
+                        .dispatch_with_listener(
+                            listener,
+                            LoggingErrorHandler::with_custom_text(
+                                "An error has occurred in the dispatcher",
+                            ),
+                        )
+                        .await;
+                }
+                Err(_) => {
+                    clog("Mode", "starting polling on localhost");
+                    dispatcher.dispatch().await;
+                }
+            }
+
+            Ok(())
         }
     }
-
-    Ok(())
 }

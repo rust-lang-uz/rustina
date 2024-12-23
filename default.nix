@@ -42,9 +42,9 @@ in
     RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
 
     meta = with lib; {
-      homepage = manifest.workspace.package.homepage;
+      homepage = manifest.homepage;
       description = "Telegram bot manager for Uzbek Rust community";
-      license = with lib.licenses; [gpl3Only];
+      license = with lib.licenses; [asl20];
 
       platforms = with platforms; linux ++ darwin;
 

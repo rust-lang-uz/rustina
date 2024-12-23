@@ -24,7 +24,7 @@ pub async fn command(bot: &Bot, msg: &Message, groups: &Groups) -> ResponseResul
 pub async fn callback_list(
     bot: &Bot,
     q: &CallbackQuery,
-    args: &Vec<&str>,
+    args: &[&str],
     groups: &Groups,
 ) -> ResponseResult<()> {
     if !args.is_empty() {
@@ -43,7 +43,7 @@ pub async fn callback_list(
     Ok(())
 }
 
-pub async fn callback_detail(bot: &Bot, q: &CallbackQuery, args: &Vec<&str>) -> ResponseResult<()> {
+pub async fn callback_detail(bot: &Bot, q: &CallbackQuery, args: &[&str]) -> ResponseResult<()> {
     let groups: Groups = Groups::new();
     let find = groups.find_group(args[1..].join("_").to_string());
 

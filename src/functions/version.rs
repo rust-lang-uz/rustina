@@ -23,7 +23,7 @@ pub async fn command(bot: &Bot, github: GitHub, msg: &Message) -> ResponseResult
 pub async fn callback_list(
     bot: &Bot,
     q: &CallbackQuery,
-    args: &Vec<&str>,
+    args: &[&str],
     github: GitHub,
 ) -> ResponseResult<()> {
     let page = args[0].parse::<u32>().unwrap();
@@ -48,7 +48,7 @@ pub async fn callback_list(
 pub async fn callback_detail(
     bot: &Bot,
     q: &CallbackQuery,
-    args: &Vec<&str>,
+    args: &[&str],
     github: GitHub,
 ) -> ResponseResult<()> {
     let page = args[0].parse::<u32>().unwrap();

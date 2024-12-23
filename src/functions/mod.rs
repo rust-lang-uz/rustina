@@ -14,8 +14,8 @@ pub mod version;
 
 pub use inline::inline;
 
+use crate::bot::Command;
 use crate::utils::{github::GitHub, groups::Groups, resources::Resources};
-use crate::Command;
 use std::error::Error;
 use teloxide::{prelude::*, types::*};
 

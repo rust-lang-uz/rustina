@@ -73,7 +73,7 @@ pub async fn callback_category_list(
 pub async fn callback_material_detail(
     bot: &Bot,
     q: &CallbackQuery,
-    args: &Vec<&str>,
+    args: &[&str],
     resources: &Resources,
 ) -> ResponseResult<()> {
     let find = resources
@@ -96,7 +96,7 @@ pub async fn callback_material_detail(
 }
 
 pub fn view_category_list(category: &str) -> String {
-    format!("<b>Siz hozirda {}{} kategoriyasi ichida turibsiz.</b>\nIltimos, keltirilgan materiallardan birini tanlang...", 
+    format!("<b>Siz hozirda {}{} kategoriyasi ichida turibsiz.</b>\nIltimos, keltirilgan materiallardan birini tanlang...",
         &category[0..1].to_uppercase(), &category[1..].replace('_', " "))
 }
 

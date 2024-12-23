@@ -1,64 +1,55 @@
 #![allow(clippy::single_match)]
 
+pub mod bot;
+pub mod config;
 pub mod functions;
 pub mod hooks;
 pub mod utils;
 
-use teloxide::{
-    dispatching::{UpdateFilterExt, UpdateHandler},
-    prelude::*,
-    utils::command::BotCommands,
-};
+use clap::{Parser, Subcommand};
+use std::path::PathBuf;
 
-#[derive(BotCommands, Clone, Debug)]
-#[command(rename_rule = "lowercase", parse_with = "split")]
-#[command(description = "These are the commands that I can understand:")]
-pub enum Command {
-    /// List existing commands
-    Help,
-
-    /// Starting point of the bot
-    Start,
-
-    /// Rules of our chat
-    Rules,
-
-    /// About the bot
-    About,
-
-    /// Available groups
-    Group,
-
-    /// Latest version
-    Latest,
-
-    /// Specific version
-    Version,
-
-    /// Report offtopic
-    Off,
-
-    /// Useful resources
-    Useful,
-
-    /// Roadmap for newbies,
-    Roadmap,
-
-    /// Check for chatid
-    Check,
+/// Telegram bot manager for Uzbek Rust community
+#[derive(Debug, Parser)]
+#[command(name = "bot")]
+#[command(about = "Telegram bot manager for Uzbek Rust community", long_about = None)]
+pub struct Cli {
+    #[command(subcommand)]
+    pub command: Commands,
 }
 
-pub fn handler() -> UpdateHandler<Box<dyn std::error::Error + Send + Sync + 'static>> {
-    dptree::entry()
-        // Inline Queries
-        .branch(Update::filter_inline_query().endpoint(functions::inline))
-        // Callbacks
-        .branch(Update::filter_callback_query().endpoint(functions::callback))
-        // Commands
-        .branch(
-            Update::filter_message()
-                .filter_command::<Command>()
-                .endpoint(functions::commands),
-        )
-        .branch(Update::filter_message().endpoint(functions::triggers))
+#[derive(Debug, Subcommand)]
+pub enum Commands {
+    /// Start bot in Polling mode with token
+    #[command(arg_required_else_help = true)]
+    Polling {
+        /// Telegram bot token
+        #[arg(required = true)]
+        token: PathBuf,
+
+        /// GitHub token
+        #[arg(required = true)]
+        github: PathBuf,
+    },
+    /// Start bot in Webhook mode with given variables
+    // #[command(arg_required_else_help = true)]
+    Webhook {
+        /// Telegram bot token
+        #[arg(required = true)]
+        token: PathBuf,
+
+        /// GitHub token
+        #[arg(required = true)]
+        github: PathBuf,
+
+        /// Domain url to set webhook address
+        #[arg(required = true)]
+        domain: String,
+
+        /// Port to host webserver at
+        #[arg(short, long)]
+        port: Option<u16>,
+    },
+    /// Start bot by getting necessary configurations from environmental variables
+    Env,
 }
