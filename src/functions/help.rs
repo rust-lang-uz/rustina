@@ -12,10 +12,7 @@ static TEXT: &[(&str, &str)] = &[
     ("useful", "rust haqida foydali yoki kerakli ma'lumotlar"),
     ("latest", "eng oxirgi reliz haqida qisqacha ma'lumot"),
     ("version", "biron anniq reliz haqida to'liq ma'lumot"),
-    (
-        "off",
-        "reply qilingan odamga offtop borligi haqida eslatish",
-    ),
+    ("warn", "mavzudan chetlashganga ogohlantiruv"),
 ];
 
 pub async fn command(bot: &Bot, msg: &Message, _cmd: &Command) -> ResponseResult<()> {
