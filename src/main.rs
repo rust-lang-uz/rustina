@@ -83,12 +83,21 @@ async fn main() -> Result<(), Box<dyn Error>> {
             let mut dispatcher = dispatch(&bot, deps);
 
             let addr = ([127, 0, 0, 1], port.unwrap_or(8445)).into(); // port 8445
-            let listener = webhooks::axum(
-                bot,
-                webhooks::Options::new(addr, config.domain.parse().unwrap()),
-            )
-            .await
-            .expect("Couldn't setup webhook");
+
+            // If everything is fine
+            // let listener = webhooks::axum(
+            //     bot,
+            //     webhooks::Options::new(addr, config.domain.parse().unwrap()),
+            // )
+            // .await
+            // .expect("Couldn't setup webhook");
+
+            // If telegram's DNS cache is fucked up
+            let listener = webhooks::axum_no_setup(webhooks::Options::new(
+                addr,
+                config.domain.parse().unwrap(),
+            ))
+            .0;
 
             dispatcher
                 .dispatch_with_listener(
